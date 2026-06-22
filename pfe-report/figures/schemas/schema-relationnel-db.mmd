@@ -1,0 +1,89 @@
+%% F20 - Schema relationnel de la base de donnees SomaScan
+erDiagram
+    %% scan_flows is a configuration table used by backend logic.
+    %% It has no direct foreign-key relationship with trips.
+    USERS ||--o{ SCAN_LOGS : effectue
+    USERS ||--o{ PERSONAL_ACCESS_TOKENS : possede
+    TRUCKS ||--o{ TRIPS : possede
+    TRUCKS ||--o{ SCAN_LOGS : concerne
+    TRIPS ||--o{ SCAN_LOGS : contient
+
+    USERS {
+        int id PK
+        string name
+        string email UK
+        string password
+        string role
+        string location
+        boolean is_active
+        datetime created_at
+        datetime updated_at
+    }
+
+    TRUCKS {
+        int id PK
+        string registration_number UK
+        string qr_code UK
+        string driver_name
+        boolean is_active
+        datetime created_at
+        datetime updated_at
+    }
+
+    TRIPS {
+        int id PK
+        int truck_id FK
+        string status
+        datetime started_at
+        datetime arrived_port_at
+        datetime left_port_at
+        datetime returned_at
+        datetime cancelled_at
+        string cancellation_reason
+        text notes
+        boolean is_active
+        datetime created_at
+        datetime updated_at
+    }
+
+    SCAN_LOGS {
+        int id PK
+        int trip_id FK
+        int truck_id FK
+        int user_id FK
+        string action
+        string location
+        datetime scanned_at
+        datetime device_time
+        string device_id
+        string result
+        string message
+        datetime created_at
+        datetime updated_at
+    }
+
+    SCAN_FLOWS {
+        int id PK
+        int step_order
+        string action
+        string from_status
+        string to_status
+        string required_role
+        string required_location
+        boolean is_active
+        datetime created_at
+        datetime updated_at
+    }
+
+    PERSONAL_ACCESS_TOKENS {
+        int id PK
+        string tokenable_type
+        int tokenable_id
+        string name
+        string token UK
+        text abilities
+        datetime last_used_at
+        datetime expires_at
+        datetime created_at
+        datetime updated_at
+    }

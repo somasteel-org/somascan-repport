@@ -1,0 +1,112 @@
+% ---- Cadre décoratif pour pages de garde ----
+\newcommand{\drawEMIFrame}{%
+  \begin{tikzpicture}[remember picture, overlay]
+    \draw[line width=1.5pt]
+      ([shift={(0.75cm,-0.75cm)}]current page.north west) rectangle
+      ([shift={(-0.75cm,0.75cm)}]current page.south east);
+  \end{tikzpicture}%
+}
+
+\newcommand{\titreprojet}{%
+  \begin{center}
+    \begin{minipage}{0.96\textwidth}
+      \centering
+      \hrule height 1.2pt
+      \vspace{8pt}
+      {\Large\bfseries\textcolor{black}{%
+        \begin{tabular}{@{}c@{}}
+          SomaScan : Conception et développement d’un\\
+          système de traçabilité des camions loués par\\
+          QR Code
+        \end{tabular}}}
+      \vspace{8pt}
+      \hrule height 1.2pt
+    \end{minipage}
+  \end{center}%
+}
+
+\newcommand{\coverimage}[3]{%
+  \IfFileExists{#3}{%
+    \includegraphics[width=#1, keepaspectratio]{#3}%
+  }{%
+    \rule{0pt}{#2}%
+  }%
+}
+
+\hypersetup{pageanchor=false}
+\newgeometry{
+  left=2.54cm,
+  right=2.54cm,
+  top=2.54cm,
+  bottom=2.54cm,
+  headheight=42pt
+}
+
+% ==================== PAGE DE GARDE ==========================
+\begin{titlepage}
+  \thispagestyle{empty}
+  \singlespacing
+  \centering
+  \vspace*{-0.2cm}
+
+  \noindent
+  \begin{minipage}[t]{0.22\textwidth}
+    \raggedright
+    \coverimage{2.9cm}{2.9cm}{figures/logos/UH1.png}
+  \end{minipage}%
+  \begin{minipage}[t]{0.56\textwidth}
+    \centering
+    {\large\bfseries Université Hassan 1\textsuperscript{er}}\\[2pt]
+    {\large\bfseries Faculté des Sciences et Techniques}\\[2pt]
+    {\large\bfseries -Settat-}
+  \end{minipage}%
+  \begin{minipage}[t]{0.22\textwidth}
+    \raggedleft
+    \coverimage{2.9cm}{2.9cm}{figures/logos/Fst_Settat.png}
+  \end{minipage}
+
+  \vspace{1.15cm}
+
+  {\LARGE Projet de Fin d'Etude}\\[6pt]
+  {\large En vue de l'obtention du diplôme}\\[18pt]
+
+  {\LARGE\bfseries MASTER SCIENCES ET TECHNIQUES}\\[6pt]
+  {\large Spécialité : Réseaux et Systèmes Informatiques (RSI)}\\[20pt]
+
+  {\large Présenté par}\\[8pt]
+  {\large\bfseries Hassan Amrani}\\[18pt]
+
+  \titreprojet
+
+  \vspace{10pt}
+  \coverimage{4.6cm}{1.6cm}{figures/logos/SomaSteel_logo.png}\\[16pt]
+
+  {\large Sous la direction de :}\\[8pt]
+  {%
+    \setlength{\tabcolsep}{0pt}%
+    \begin{tabular}{@{}l@{}}
+      Pr. Sara Arezki, Professeure à la FST de Settat\\[3pt]
+      M. Amine Lahrech, Responsable des Systèmes d'Information chez SOMASTEEL\\[3pt]
+      M. Khalid Machrah, Directeur Général de SOMASTEEL\\[3pt]
+    \end{tabular}%
+  }\\[16pt]
+
+  {\large Soutenu le 25 juin 2026, devant le jury :}\\[8pt]
+  {%
+    \begin{tabular}{@{}l@{\hspace{0.8cm}}l@{\hspace{0.8cm}}r@{}}
+      Mme. Sara Arezki & Professeur à la FST de Settat & Encadrante\\
+      Pr. Toufik Fouad & Professeur à la FST de Settat & Examinateur
+    \end{tabular}%
+  }
+
+  \vfill
+  {\large\bfseries Année Universitaire : 2025 - 2026}
+\end{titlepage}
+
+% ==================== PAGE VIERGE ============================
+\thispagestyle{empty}
+\null
+\newpage
+
+\restoregeometry
+\hypersetup{pageanchor=true}

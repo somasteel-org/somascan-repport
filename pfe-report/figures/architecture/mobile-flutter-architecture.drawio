@@ -1,0 +1,64 @@
+<mxfile host="app.diagrams.net" modified="2026-06-16T00:00:00.000Z" agent="Codex" version="24.7.17" type="device">
+  <diagram id="mobile-flutter-architecture" name="F17 - Mobile Flutter">
+    <mxGraphModel dx="1600" dy="1000" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1400" pageHeight="900" math="0" shadow="0">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+        <mxCell id="title" value="Architecture interne de l'application mobile Flutter" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontSize=22;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="300" y="25" width="800" height="40" as="geometry"/>
+        </mxCell>
+        <mxCell id="app-boundary" value="Application mobile Flutter" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8fbff;strokeColor=#2f5597;fontSize=17;fontStyle=1;verticalAlign=top;spacingTop=14;" vertex="1" parent="1">
+          <mxGeometry x="170" y="90" width="720" height="690" as="geometry"/>
+        </mxCell>
+        <mxCell id="presentation" value="Couche presentation&#xa;LoginScreen, DashboardScreen, ScanScreen, widgets reutilisables" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e8f4ff;strokeColor=#3778bf;fontSize=14;fontStyle=1;align=center;" vertex="1" parent="1">
+          <mxGeometry x="260" y="155" width="540" height="80" as="geometry"/>
+        </mxCell>
+        <mxCell id="state" value="Couche gestion d'etat - Riverpod&#xa;AuthController, ScanController, providers de navigation et session" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f1e8ff;strokeColor=#7654a6;fontSize=14;fontStyle=1;align=center;" vertex="1" parent="1">
+          <mxGeometry x="260" y="275" width="540" height="80" as="geometry"/>
+        </mxCell>
+        <mxCell id="services" value="Couche services applicatifs&#xa;AuthService, ScanService, OperatorService, TruckService" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#eef7ed;strokeColor=#4f8a45;fontSize=14;fontStyle=1;align=center;" vertex="1" parent="1">
+          <mxGeometry x="260" y="395" width="540" height="80" as="geometry"/>
+        </mxCell>
+        <mxCell id="core" value="Couche core et infrastructure&#xa;ApiClient Dio, AppConfig, ErrorMapper, TokenStorageService, DeviceService" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff5d8;strokeColor=#b78500;fontSize=14;fontStyle=1;align=center;" vertex="1" parent="1">
+          <mxGeometry x="260" y="515" width="540" height="85" as="geometry"/>
+        </mxCell>
+        <mxCell id="models" value="Modeles de donnees&#xa;AppUser, AuthSession, ScanResult, ScanHistoryItem, TruckBasic" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#808080;fontSize=13;align=center;" vertex="1" parent="1">
+          <mxGeometry x="260" y="640" width="540" height="70" as="geometry"/>
+        </mxCell>
+        <mxCell id="camera" value="Camera du telephone&#xa;lecture QR code" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f7f7f7;strokeColor=#666666;fontSize=13;fontStyle=1;align=center;" vertex="1" parent="1">
+          <mxGeometry x="1000" y="165" width="230" height="70" as="geometry"/>
+        </mxCell>
+        <mxCell id="secure-storage" value="Stockage securise local&#xa;token d'authentification" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f7f7f7;strokeColor=#666666;fontSize=13;fontStyle=1;align=center;" vertex="1" parent="1">
+          <mxGeometry x="1000" y="520" width="230" height="75" as="geometry"/>
+        </mxCell>
+        <mxCell id="backend" value="Backend Laravel&#xa;API REST securisee" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe9e6;strokeColor=#c24b3a;fontSize=14;fontStyle=1;align=center;" vertex="1" parent="1">
+          <mxGeometry x="1000" y="650" width="230" height="80" as="geometry"/>
+        </mxCell>
+        <mxCell id="note" value="Le detail main.dart / ProviderScope / GoRouter releve de l'implementation et sera traite au chapitre 4." style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#b3b3b3;fontSize=12;fontStyle=2;align=center;" vertex="1" parent="1">
+          <mxGeometry x="170" y="805" width="720" height="45" as="geometry"/>
+        </mxCell>
+        <mxCell id="e-presentation-state" value="actions utilisateur et etat UI" style="endArrow=block;html=1;rounded=0;fontSize=11;strokeWidth=1.6;" edge="1" parent="1" source="presentation" target="state">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e-state-services" value="orchestration metier" style="endArrow=block;html=1;rounded=0;fontSize=11;strokeWidth=1.6;" edge="1" parent="1" source="state" target="services">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e-services-core" value="requete, stockage, erreurs" style="endArrow=block;html=1;rounded=0;fontSize=11;strokeWidth=1.6;" edge="1" parent="1" source="services" target="core">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e-core-models" value="serialisation / mapping" style="endArrow=block;html=1;rounded=0;fontSize=11;strokeWidth=1.4;" edge="1" parent="1" source="core" target="models">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e-camera-presentation" value="flux camera vers ScanScreen" style="endArrow=block;html=1;rounded=0;fontSize=11;strokeWidth=1.4;" edge="1" parent="1" source="camera" target="presentation">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e-core-storage" value="lecture / ecriture token" style="endArrow=block;html=1;rounded=0;fontSize=11;strokeWidth=1.4;" edge="1" parent="1" source="core" target="secure-storage">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e-core-backend" value="HTTP REST JSON + Bearer token" style="endArrow=block;html=1;rounded=0;fontSize=11;strokeWidth=1.6;" edge="1" parent="1" source="core" target="backend">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

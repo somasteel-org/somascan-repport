@@ -1,0 +1,82 @@
+%% F25 - Diagramme de classes conceptuel du domaine SomaScan
+classDiagram
+    direction LR
+
+    class Utilisateur {
+        +id
+        +nom
+        +email
+        +role
+        +localisation
+        +actif
+        +authentifier()
+        +scannerCamion()
+    }
+
+    class Camion {
+        +id
+        +immatriculation
+        +qr_code
+        +chauffeur
+        +actif
+        +genererQRCode()
+        +changerEtat()
+    }
+
+    class Trajet {
+        +id
+        +statut
+        +date_depart_usine
+        +date_arrivee_port
+        +date_depart_port
+        +date_retour_usine
+        +actif
+        +notes
+        +motif_annulation
+        +demarrer()
+        +mettreAJourStatut()
+        +annuler()
+        +calculerDurees()
+    }
+
+    class LogScan {
+        +id
+        +action
+        +localisation
+        +date_scan
+        +device_time
+        +device_id
+        +resultat
+        +message
+        +enregistrer()
+    }
+
+    class FluxScan {
+        +id
+        +ordre
+        +action
+        +statut_source
+        +statut_cible
+        +role_requis
+        +localisation_requise
+        +actif
+        +determinerEtape()
+        +validerTransition()
+    }
+
+    class JetonAcces {
+        +id
+        +token_hash
+        +nom_device
+        +capacites
+        +date_expiration
+        +validerToken()
+        +revoquer()
+    }
+
+    Utilisateur "1" --> "0..*" LogScan : effectue
+    Utilisateur "1" --> "0..*" JetonAcces : possede
+    Camion "1" --> "0..*" Trajet : possede
+    Camion "1" --> "0..*" LogScan : concerne
+    Trajet "1" --> "0..*" LogScan : contient
+    FluxScan ..> Trajet : definit_transitions

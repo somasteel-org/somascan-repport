@@ -1,0 +1,58 @@
+<mxfile host="app.diagrams.net" modified="2026-06-16T00:00:00.000Z" agent="Codex" version="24.7.17" type="device">
+  <diagram id="schema-securite-rbac" name="F24 - Securite RBAC">
+    <mxGraphModel dx="1700" dy="1100" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1500" pageHeight="1000" math="0" shadow="0">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+        <mxCell id="title" value="Modèle de sécurité : rôles, permissions et jetons API" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontSize=22;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="330" y="25" width="840" height="40" as="geometry"/>
+        </mxCell>
+        <mxCell id="auth-flow" value="Chaîne de contrôle d'accès" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f7f7f7;strokeColor=#666666;fontSize=16;fontStyle=1;verticalAlign=top;spacingTop=12;" vertex="1" parent="1">
+          <mxGeometry x="80" y="105" width="620" height="285" as="geometry"/>
+        </mxCell>
+        <mxCell id="client" value="Client React / Flutter" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e8f4ff;strokeColor=#3778bf;fontSize=13;fontStyle=1;align=center;" vertex="1" parent="1">
+          <mxGeometry x="125" y="175" width="160" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="token" value="Bearer token&#xa;Laravel Sanctum" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff5d8;strokeColor=#b78500;fontSize=13;fontStyle=1;align=center;" vertex="1" parent="1">
+          <mxGeometry x="345" y="175" width="160" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="rolecheck" value="Middleware RBAC&#xa;vérification du rôle" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe9e6;strokeColor=#c24b3a;fontSize=13;fontStyle=1;align=center;" vertex="1" parent="1">
+          <mxGeometry x="125" y="285" width="170" height="70" as="geometry"/>
+        </mxCell>
+        <mxCell id="businesscheck" value="Validation métier&#xa;rôle + localisation + action" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe9e6;strokeColor=#c24b3a;fontSize=13;fontStyle=1;align=center;" vertex="1" parent="1">
+          <mxGeometry x="345" y="285" width="190" height="70" as="geometry"/>
+        </mxCell>
+        <mxCell id="protected" value="Endpoint protégé&#xa;scan / admin / rapport" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#eef7ed;strokeColor=#4f8a45;fontSize=13;fontStyle=1;align=center;" vertex="1" parent="1">
+          <mxGeometry x="560" y="230" width="160" height="70" as="geometry"/>
+        </mxCell>
+        <mxCell id="roles-box" value="Rôles du système" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8fbff;strokeColor=#2f5597;fontSize=16;fontStyle=1;verticalAlign=top;spacingTop=12;" vertex="1" parent="1">
+          <mxGeometry x="795" y="105" width="610" height="575" as="geometry"/>
+        </mxCell>
+        <mxCell id="admin" value="ADMIN / Agent logistique&#xa;-----------------------------&#xa;- accès application web&#xa;- gérer utilisateurs&#xa;- gérer camions et QR codes&#xa;- suivre / annuler les trajets&#xa;- consulter tous les logs&#xa;- générer rapports&#xa;- configurer scan_flows" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f1e8ff;strokeColor=#7654a6;fontSize=12;align=left;spacing=10;" vertex="1" parent="1">
+          <mxGeometry x="835" y="170" width="250" height="230" as="geometry"/>
+        </mxCell>
+        <mxCell id="company" value="COMPANY_OPERATOR&#xa;Opérateur usine&#xa;-----------------------------&#xa;- accès application mobile&#xa;- scan START à l'usine&#xa;- scan RETURN à l'usine&#xa;- consulter son historique récent" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#eef7ed;strokeColor=#4f8a45;fontSize=12;align=left;spacing=10;" vertex="1" parent="1">
+          <mxGeometry x="1125" y="170" width="240" height="190" as="geometry"/>
+        </mxCell>
+        <mxCell id="port" value="PORT_OPERATOR&#xa;Opérateur port&#xa;-----------------------------&#xa;- accès application mobile&#xa;- scan ARRIVE au port&#xa;- scan LEAVE au port&#xa;- consulter son historique récent" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#eef7ed;strokeColor=#4f8a45;fontSize=12;align=left;spacing=10;" vertex="1" parent="1">
+          <mxGeometry x="1125" y="415" width="240" height="190" as="geometry"/>
+        </mxCell>
+        <mxCell id="errors" value="Réponses de sécurité&#xa;401 : token absent ou invalide&#xa;403 : rôle non autorisé&#xa;422 / 4xx : action métier refusée" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#b3b3b3;fontSize=12;align=left;spacing=10;" vertex="1" parent="1">
+          <mxGeometry x="120" y="505" width="300" height="120" as="geometry"/>
+        </mxCell>
+        <mxCell id="scan-rule" value="Règle critique de scan&#xa;L'utilisateur authentifié ne peut exécuter que les actions compatibles avec son rôle et sa localisation." style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff5d8;strokeColor=#b78500;fontSize=12;fontStyle=2;align=center;" vertex="1" parent="1">
+          <mxGeometry x="120" y="680" width="580" height="80" as="geometry"/>
+        </mxCell>
+        <mxCell id="e-client-token" value="Authorization: Bearer" style="endArrow=block;html=1;rounded=0;fontSize=11;strokeWidth=1.5;" edge="1" parent="1" source="client" target="token"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e-token-role" value="session valide" style="endArrow=block;html=1;rounded=0;fontSize=11;strokeWidth=1.5;" edge="1" parent="1" source="token" target="rolecheck"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e-role-business" value="rôle autorisé" style="endArrow=block;html=1;rounded=0;fontSize=11;strokeWidth=1.5;" edge="1" parent="1" source="rolecheck" target="businesscheck"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e-business-protected" value="action valide" style="endArrow=block;html=1;rounded=0;fontSize=11;strokeWidth=1.5;" edge="1" parent="1" source="businesscheck" target="protected"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e-role-errors" value="refus" style="endArrow=block;html=1;rounded=0;fontSize=11;strokeWidth=1.3;dashed=1;" edge="1" parent="1" source="rolecheck" target="errors"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e-business-errors" value="erreur métier" style="endArrow=block;html=1;rounded=0;fontSize=11;strokeWidth=1.3;dashed=1;" edge="1" parent="1" source="businesscheck" target="errors"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e-admin-protected" value="permissions admin" style="endArrow=block;html=1;rounded=0;fontSize=11;strokeWidth=1.3;dashed=1;" edge="1" parent="1" source="admin" target="protected"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e-company-rule" value="START / RETURN" style="endArrow=block;html=1;rounded=0;fontSize=11;strokeWidth=1.3;dashed=1;" edge="1" parent="1" source="company" target="scan-rule"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e-port-rule" value="ARRIVE / LEAVE" style="endArrow=block;html=1;rounded=0;fontSize=11;strokeWidth=1.3;dashed=1;" edge="1" parent="1" source="port" target="scan-rule"><mxGeometry relative="1" as="geometry"/></mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

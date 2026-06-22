@@ -1,0 +1,35 @@
+%% F22 - Sequence de scan QR et mise a jour du statut
+sequenceDiagram
+    autonumber
+    actor OP as Operateur terrain
+    participant APP as Application mobile Flutter
+    participant API as API Laravel / ScanController
+    participant AUTH as Middleware Sanctum + RBAC
+    participant SCAN as ScanService
+    participant FLOW as ScanFlowService + ValidationService
+    participant DB as Base de donnees
+
+    OP->>APP: Scanner le QR code du camion
+    APP->>API: POST /api/scan (qr_code, device_time, device_id)
+    API->>AUTH: Verifier token et role
+    AUTH-->>API: Utilisateur authentifie
+    API->>SCAN: submitScan(qr_code, user, device)
+    SCAN->>DB: Rechercher camion par qr_code
+    DB-->>SCAN: Camion actif
+    SCAN->>FLOW: Determiner action attendue
+    FLOW->>DB: Lire scan_flows et trip actif
+    DB-->>FLOW: Etape courante et contraintes
+    FLOW-->>SCAN: Action valide (START / ARRIVE / LEAVE / RETURN)
+    SCAN->>DB: Creer ou mettre a jour Trip
+    SCAN->>DB: Enregistrer ScanLog
+    DB-->>SCAN: Transaction confirmee
+    SCAN-->>API: Resultat avec statut courant
+    API-->>APP: 200 OK + message + prochaine etape
+    APP-->>OP: Afficher confirmation
+
+    alt Scan invalide
+        FLOW-->>SCAN: Action refusee
+        SCAN-->>API: Erreur metier
+        API-->>APP: 4xx + message explicite
+        APP-->>OP: Afficher erreur
+    end

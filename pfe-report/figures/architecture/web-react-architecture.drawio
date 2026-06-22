@@ -1,0 +1,177 @@
+<mxfile host="65bd71144e">
+    <diagram id="web-react-architecture" name="F18 - Web React">
+        <mxGraphModel dx="1268" dy="1919" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1500" pageHeight="1000" math="0" shadow="0">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                <mxCell id="root-box" value="Racine et routage" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f7f7f7;strokeColor=#666666;fontSize=17;fontStyle=1;verticalAlign=top;spacingTop=12;fontFamily=Times New Roman;" parent="1" vertex="1">
+                    <mxGeometry x="385" y="-230" width="260" height="300" as="geometry"/>
+                </mxCell>
+                <mxCell id="routes-box" value="Routage protege" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f1e8ff;strokeColor=#7654a6;fontSize=17;fontStyle=1;verticalAlign=top;spacingTop=12;fontFamily=Times New Roman;" parent="1" vertex="1">
+                    <mxGeometry x="385" y="100" width="270" height="310" as="geometry"/>
+                </mxCell>
+                <mxCell id="pages-box" value="Pages administrateur" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e8f4ff;strokeColor=#3778bf;fontSize=17;fontStyle=1;verticalAlign=top;spacingTop=12;fontFamily=Times New Roman;" parent="1" vertex="1">
+                    <mxGeometry x="740" y="169" width="290" height="401" as="geometry"/>
+                </mxCell>
+                <mxCell id="ui-box" value="Composants UI" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff5d8;strokeColor=#b78500;fontSize=17;fontStyle=1;verticalAlign=top;spacingTop=12;fontFamily=Times New Roman;" parent="1" vertex="1">
+                    <mxGeometry x="1070" y="245" width="230" height="326" as="geometry"/>
+                </mxCell>
+                <mxCell id="state-box" value="Etat global" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#eef7ed;strokeColor=#4f8a45;fontSize=17;fontStyle=1;verticalAlign=top;spacingTop=12;fontFamily=Times New Roman;" parent="1" vertex="1">
+                    <mxGeometry x="380" y="460" width="250" height="190" as="geometry"/>
+                </mxCell>
+                <mxCell id="api-box" value="Couche API" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe9e6;strokeColor=#c24b3a;fontSize=17;fontStyle=1;verticalAlign=top;spacingTop=12;fontFamily=Times New Roman;" parent="1" vertex="1">
+                    <mxGeometry x="730" y="-230" width="270" height="300" as="geometry"/>
+                </mxCell>
+                <mxCell id="entry" value="main.tsx" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#666666;fontSize=17;fontFamily=Times New Roman;" parent="1" vertex="1">
+                    <mxGeometry x="425" y="-175" width="180" height="45" as="geometry"/>
+                </mxCell>
+                <mxCell id="app" value="App.tsx" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#666666;fontSize=17;fontFamily=Times New Roman;" parent="1" vertex="1">
+                    <mxGeometry x="425" y="-95" width="180" height="45" as="geometry"/>
+                </mxCell>
+                <mxCell id="router" value="React Router DOM v7" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#666666;fontSize=17;fontFamily=Times New Roman;" parent="1" vertex="1">
+                    <mxGeometry x="425" y="-15" width="180" height="50" as="geometry"/>
+                </mxCell>
+                <mxCell id="public" value="Route publique&#xa;/login" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#7654a6;fontSize=17;fontFamily=Times New Roman;" parent="1" vertex="1">
+                    <mxGeometry x="430" y="155" width="180" height="55" as="geometry"/>
+                </mxCell>
+                <mxCell id="protected" value="ProtectedRoute&#xa;role ADMIN requis" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#7654a6;fontSize=17;fontFamily=Times New Roman;" parent="1" vertex="1">
+                    <mxGeometry x="430" y="245" width="180" height="58" as="geometry"/>
+                </mxCell>
+                <mxCell id="layout" value="AdminLayout&#xa;sidebar + header + outlet" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#7654a6;fontSize=17;fontFamily=Times New Roman;" parent="1" vertex="1">
+                    <mxGeometry x="430" y="335" width="180" height="58" as="geometry"/>
+                </mxCell>
+                <mxCell id="dashboard" value="Dashboard&#xa;KPI et graphiques" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#3778bf;fontSize=17;fontFamily=Times New Roman;" parent="1" vertex="1">
+                    <mxGeometry x="790" y="496" width="190" height="54" as="geometry"/>
+                </mxCell>
+                <mxCell id="trucks" value="Trucks&#xa;gestion camions + QR" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#3778bf;fontSize=17;fontFamily=Times New Roman;" parent="1" vertex="1">
+                    <mxGeometry x="790" y="430" width="190" height="54" as="geometry"/>
+                </mxCell>
+                <mxCell id="users" value="Users&#xa;gestion operateurs" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#3778bf;fontSize=17;fontFamily=Times New Roman;" parent="1" vertex="1">
+                    <mxGeometry x="790" y="359" width="190" height="54" as="geometry"/>
+                </mxCell>
+                <mxCell id="trips" value="Trips + TripDetails&#xa;suivi et historique" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#3778bf;fontSize=17;fontFamily=Times New Roman;" parent="1" vertex="1">
+                    <mxGeometry x="790" y="290" width="190" height="54" as="geometry"/>
+                </mxCell>
+                <mxCell id="reports" value="Reports&#xa;analyse et exports" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#3778bf;fontSize=17;fontFamily=Times New Roman;" parent="1" vertex="1">
+                    <mxGeometry x="790" y="220" width="190" height="54" as="geometry"/>
+                </mxCell>
+                <mxCell id="tables" value="Tables et pagination" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#b78500;fontSize=17;fontFamily=Times New Roman;" parent="1" vertex="1">
+                    <mxGeometry x="1090" y="295" width="190" height="45" as="geometry"/>
+                </mxCell>
+                <mxCell id="forms" value="Formulaires et modales" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#b78500;fontSize=17;fontFamily=Times New Roman;" parent="1" vertex="1">
+                    <mxGeometry x="1090" y="365" width="190" height="45" as="geometry"/>
+                </mxCell>
+                <mxCell id="cards" value="KPI cards / status badges" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#b78500;fontSize=17;fontFamily=Times New Roman;" parent="1" vertex="1">
+                    <mxGeometry x="1090" y="435" width="190" height="45" as="geometry"/>
+                </mxCell>
+                <mxCell id="charts" value="Recharts" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#b78500;fontSize=17;fontFamily=Times New Roman;" parent="1" vertex="1">
+                    <mxGeometry x="1090" y="505" width="190" height="45" as="geometry"/>
+                </mxCell>
+                <mxCell id="zustand" value="Zustand authStore&#xa;user, token, login, logout" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#4f8a45;fontSize=17;fontFamily=Times New Roman;" parent="1" vertex="1">
+                    <mxGeometry x="405" y="510" width="200" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="local" value="localStorage&#xa;persistance session" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#4f8a45;fontSize=17;fontFamily=Times New Roman;" parent="1" vertex="1">
+                    <mxGeometry x="405" y="590" width="200" height="50" as="geometry"/>
+                </mxCell>
+                <mxCell id="services" value="Services API&#xa;auth, trucks, users, trips, reports" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#c24b3a;fontSize=17;fontFamily=Times New Roman;" parent="1" vertex="1">
+                    <mxGeometry x="765" y="-180" width="200" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="axios" value="Axios instance&#xa;base URL + interceptors" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#c24b3a;fontSize=17;fontFamily=Times New Roman;" parent="1" vertex="1">
+                    <mxGeometry x="765" y="-90" width="200" height="58" as="geometry"/>
+                </mxCell>
+                <mxCell id="parsers" value="Parsing defensif&#xa;pagination, erreurs, wrappers" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#c24b3a;fontSize=17;fontFamily=Times New Roman;" parent="1" vertex="1">
+                    <mxGeometry x="765" y="-20" width="200" height="58" as="geometry"/>
+                </mxCell>
+                <mxCell id="backend" value="Backend Laravel&#xa;REST API" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#eeeeee;strokeColor=#444444;fontSize=17;fontStyle=1;fontFamily=Times New Roman;" parent="1" vertex="1">
+                    <mxGeometry x="1110" y="-95" width="190" height="70" as="geometry"/>
+                </mxCell>
+                <mxCell id="e-entry-app" value="" style="endArrow=block;html=1;rounded=0;strokeWidth=1.4;fontFamily=Times New Roman;fontSize=17;" parent="1" source="entry" target="app" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e-app-router" value="" style="endArrow=block;html=1;rounded=0;strokeWidth=1.4;fontFamily=Times New Roman;fontSize=17;" parent="1" source="app" target="router" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e-router-public" value="" style="endArrow=block;html=1;rounded=0;strokeWidth=1.4;edgeStyle=orthogonalEdgeStyle;fontFamily=Times New Roman;fontSize=17;" parent="1" source="router" target="public" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="370" y="10"/>
+                            <mxPoint x="370" y="183"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="e-router-protected" value="" style="endArrow=block;html=1;rounded=0;strokeWidth=1.4;edgeStyle=orthogonalEdgeStyle;fontFamily=Times New Roman;fontSize=17;" parent="1" source="router" target="protected" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="370" y="10"/>
+                            <mxPoint x="370" y="274"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="e-protected-zustand" value="verifier session" style="endArrow=block;html=1;rounded=0;fontSize=16;strokeWidth=1.4;edgeStyle=orthogonalEdgeStyle;fontFamily=Times New Roman;" parent="1" source="protected" target="zustand" edge="1">
+                    <mxGeometry x="0.0032" relative="1" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="370" y="290"/>
+                            <mxPoint x="370" y="540"/>
+                        </Array>
+                        <mxPoint as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="e-zustand-local" value="" style="endArrow=block;html=1;rounded=0;strokeWidth=1.4;fontFamily=Times New Roman;fontSize=17;" parent="1" source="zustand" target="local" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e-protected-layout" value="ADMIN" style="endArrow=block;html=1;rounded=0;fontSize=11;strokeWidth=1.4;exitX=0.5;exitY=1;exitDx=0;exitDy=0;fontFamily=Times New Roman;" parent="1" source="protected" target="layout" edge="1">
+                    <mxGeometry x="0.0625" y="-30" relative="1" as="geometry">
+                        <mxPoint x="520" y="290" as="sourcePoint"/>
+                        <mxPoint as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="e-layout-dashboard" value="" style="endArrow=block;html=1;rounded=0;strokeWidth=1.2;entryX=0;entryY=0.5;entryDx=0;entryDy=0;fontFamily=Times New Roman;fontSize=17;" parent="1" source="layout" target="dashboard" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e-layout-trucks" value="" style="endArrow=block;html=1;rounded=0;strokeWidth=1.2;entryX=0;entryY=0.5;entryDx=0;entryDy=0;fontFamily=Times New Roman;fontSize=17;" parent="1" source="layout" target="trucks" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e-layout-users" value="" style="endArrow=block;html=1;rounded=0;strokeWidth=1.2;entryX=0;entryY=0.5;entryDx=0;entryDy=0;fontFamily=Times New Roman;fontSize=17;" parent="1" source="layout" target="users" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e-layout-trips" value="" style="endArrow=block;html=1;rounded=0;strokeWidth=1.2;entryX=0;entryY=0.5;entryDx=0;entryDy=0;fontFamily=Times New Roman;fontSize=17;" parent="1" source="layout" target="trips" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e-layout-reports" value="" style="endArrow=block;html=1;rounded=0;strokeWidth=1.2;entryX=0;entryY=0.5;entryDx=0;entryDy=0;fontFamily=Times New Roman;fontSize=17;" parent="1" source="layout" target="reports" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e-pages-ui" value="compose" style="endArrow=block;html=1;rounded=0;fontSize=16;strokeWidth=1.3;entryX=0;entryY=0.5;entryDx=0;entryDy=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;fontFamily=Times New Roman;" parent="1" source="trips" target="tables" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e-pages-services" value="data fetching" style="endArrow=block;html=1;rounded=0;fontSize=16;strokeWidth=1.4;edgeStyle=orthogonalEdgeStyle;fontFamily=Times New Roman;" parent="1" source="reports" target="services" edge="1">
+                    <mxGeometry x="0.0975" relative="1" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="1050" y="247"/>
+                            <mxPoint x="1050" y="-150"/>
+                        </Array>
+                        <mxPoint as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="e-services-axios" value="" style="endArrow=block;html=1;rounded=0;strokeWidth=1.4;fontFamily=Times New Roman;fontSize=17;" parent="1" source="services" target="axios" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e-axios-parsers" value="" style="endArrow=block;html=1;rounded=0;strokeWidth=1.4;fontFamily=Times New Roman;fontSize=17;" parent="1" source="axios" target="parsers" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e-axios-backend" value="REST JSON" style="endArrow=block;html=1;rounded=0;fontSize=16;strokeWidth=1.5;fontFamily=Times New Roman;" parent="1" source="axios" target="backend" edge="1">
+                    <mxGeometry x="-0.5484" y="-1" relative="1" as="geometry">
+                        <mxPoint as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="e-login-services" value="login" style="endArrow=block;html=1;rounded=0;fontSize=16;strokeWidth=1.4;dashed=1;edgeStyle=orthogonalEdgeStyle;fontFamily=Times New Roman;" parent="1" source="public" target="services" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="690" y="183"/>
+                            <mxPoint x="690" y="-150"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+</mxfile>

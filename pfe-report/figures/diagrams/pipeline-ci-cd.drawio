@@ -1,0 +1,133 @@
+<mxfile host="65bd71144e">
+    <diagram id="pipeline-ci-cd" name="F40 - Pipeline CI CD structure">
+        <mxGraphModel dx="1512" dy="967" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1400" pageHeight="900" math="0" shadow="0">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                <mxCell id="trigger" value="Déclenchement GitHub Actions&lt;br&gt;&lt;font style=&quot;font-size: 16px; font-weight: normal;&quot;&gt;push sur master ou workflow_dispatch&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=17;fontStyle=1;fontFamily=Times New Roman;" parent="1" vertex="1">
+                    <mxGeometry x="70" y="370" width="270" height="72" as="geometry"/>
+                </mxCell>
+                <mxCell id="stage1" value="1. Source" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#999999;fontSize=18;fontStyle=1;fontFamily=Times New Roman;" parent="1" vertex="1">
+                    <mxGeometry x="90" y="60" width="170" height="38" as="geometry"/>
+                </mxCell>
+                <mxCell id="stage2" value="2. Accès sécurisé" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#999999;fontSize=18;fontStyle=1;fontFamily=Times New Roman;" parent="1" vertex="1">
+                    <mxGeometry x="300" y="60" width="170" height="38" as="geometry"/>
+                </mxCell>
+                <mxCell id="stage3" value="3. Préparation" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#999999;fontSize=18;fontStyle=1;fontFamily=Times New Roman;" parent="1" vertex="1">
+                    <mxGeometry x="510" y="60" width="170" height="38" as="geometry"/>
+                </mxCell>
+                <mxCell id="stage4" value="4. Déploiement" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#999999;fontSize=18;fontStyle=1;fontFamily=Times New Roman;" parent="1" vertex="1">
+                    <mxGeometry x="720" y="60" width="170" height="38" as="geometry"/>
+                </mxCell>
+                <mxCell id="stage5" value="5. Post-déploiement" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#999999;fontSize=18;fontStyle=1;fontFamily=Times New Roman;" parent="1" vertex="1">
+                    <mxGeometry x="930" y="60" width="170" height="38" as="geometry"/>
+                </mxCell>
+                <mxCell id="stage6" value="6. Production" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#999999;fontSize=18;fontStyle=1;fontFamily=Times New Roman;" parent="1" vertex="1">
+                    <mxGeometry x="1140" y="60" width="170" height="38" as="geometry"/>
+                </mxCell>
+                <mxCell id="backend-lane" value="backend-deploy.yaml : Laravel" style="swimlane;html=1;rounded=1;startSize=34;fillColor=#fff5f5;strokeColor=#b85450;fontSize=20;fontStyle=1;fontFamily=Times New Roman;" parent="1" vertex="1">
+                    <mxGeometry x="55" y="120" width="1290" height="210" as="geometry"/>
+                </mxCell>
+                <mxCell id="be1" value="&lt;font style=&quot;font-size: 17px;&quot;&gt;&lt;b&gt;Checkout&lt;br&gt;&lt;/b&gt;&lt;/font&gt;&lt;font&gt;actions/checkout@v4&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=16;fontFamily=Times New Roman;" parent="backend-lane" vertex="1">
+                    <mxGeometry x="35" y="70.5" width="170" height="68" as="geometry"/>
+                </mxCell>
+                <mxCell id="be2" value="&lt;font style=&quot;font-size: 17px;&quot;&gt;&lt;b&gt;SSH agent&lt;br&gt;&lt;/b&gt;&lt;/font&gt;&lt;font&gt;clé privée + known hosts&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=16;fontFamily=Times New Roman;" parent="backend-lane" vertex="1">
+                    <mxGeometry x="245" y="70.5" width="170" height="68" as="geometry"/>
+                </mxCell>
+                <mxCell id="be3" value="&lt;font style=&quot;font-size: 17px;&quot;&gt;&lt;b&gt;Mise à jour distante&lt;br&gt;&lt;/b&gt;&lt;/font&gt;&lt;font&gt;git fetch, checkout, pull&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=16;fontFamily=Times New Roman;" parent="backend-lane" vertex="1">
+                    <mxGeometry x="455" y="70.5" width="170" height="68" as="geometry"/>
+                </mxCell>
+                <mxCell id="be4" value="&lt;b&gt;&lt;font style=&quot;font-size: 17px;&quot;&gt;Dépendances PHP&lt;br&gt;&lt;/font&gt;&lt;/b&gt;&lt;font&gt;composer install --no-dev&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=16;fontFamily=Times New Roman;" parent="backend-lane" vertex="1">
+                    <mxGeometry x="665" y="70.5" width="170" height="68" as="geometry"/>
+                </mxCell>
+                <mxCell id="be5" value="&lt;b&gt;&lt;font style=&quot;font-size: 17px;&quot;&gt;Artisan production&lt;br&gt;&lt;/font&gt;&lt;/b&gt;&lt;font&gt;optimize:clear, migrate --force,&lt;br&gt;config:cache, route:cache&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=16;fontFamily=Times New Roman;" parent="backend-lane" vertex="1">
+                    <mxGeometry x="875" y="59.5" width="175" height="92" as="geometry"/>
+                </mxCell>
+                <mxCell id="be6" value="Laravel API&lt;br&gt;&lt;font&gt;Nginx + PHP 8.2&lt;br&gt;endpoints /api&lt;/font&gt;" style="shape=cylinder3d;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=16;fontFamily=Times New Roman;" parent="backend-lane" vertex="1">
+                    <mxGeometry x="1085" y="57.5" width="175" height="95" as="geometry"/>
+                </mxCell>
+                <mxCell id="be-e1" style="endArrow=block;html=1;rounded=0;strokeWidth=1.6;strokeColor=#b85450;fontFamily=Times New Roman;" parent="backend-lane" source="be1" target="be2" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="be-e2" style="endArrow=block;html=1;rounded=0;strokeWidth=1.6;strokeColor=#b85450;fontFamily=Times New Roman;" parent="backend-lane" source="be2" target="be3" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="be-e3" style="endArrow=block;html=1;rounded=0;strokeWidth=1.6;strokeColor=#b85450;fontFamily=Times New Roman;" parent="backend-lane" source="be3" target="be4" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="be-e4" style="endArrow=block;html=1;rounded=0;strokeWidth=1.6;strokeColor=#b85450;fontFamily=Times New Roman;" parent="backend-lane" source="be4" target="be5" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="be-e5" style="endArrow=block;html=1;rounded=0;strokeWidth=1.6;strokeColor=#b85450;fontFamily=Times New Roman;" parent="backend-lane" source="be5" target="be6" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="frontend-lane" value="frontend-deploy.yaml : React" style="swimlane;html=1;rounded=1;startSize=34;fillColor=#f3fff1;strokeColor=#82b366;fontSize=20;fontStyle=1;fontFamily=Times New Roman;" parent="1" vertex="1">
+                    <mxGeometry x="55" y="500" width="1290" height="210" as="geometry">
+                        <mxRectangle x="55" y="500" width="270" height="40" as="alternateBounds"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="fe1" value="&lt;font style=&quot;font-size: 17px;&quot;&gt;&lt;b&gt;Checkout branche&lt;br&gt;&lt;/b&gt;&lt;/font&gt;&lt;font&gt;ref = deploy_branch&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=16;fontFamily=Times New Roman;" parent="frontend-lane" vertex="1">
+                    <mxGeometry x="35" y="83" width="170" height="68" as="geometry"/>
+                </mxCell>
+                <mxCell id="fe2" value="&lt;b&gt;&lt;font style=&quot;font-size: 17px;&quot;&gt;Node.js 22&lt;br&gt;&lt;/font&gt;&lt;/b&gt;&lt;font&gt;cache npm&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=16;fontFamily=Times New Roman;" parent="frontend-lane" vertex="1">
+                    <mxGeometry x="245" y="83" width="170" height="68" as="geometry"/>
+                </mxCell>
+                <mxCell id="fe3" value="&lt;b&gt;&lt;font style=&quot;font-size: 17px;&quot;&gt;Build React&lt;br&gt;&lt;/font&gt;&lt;/b&gt;&lt;font&gt;npm ci puis npm run build&lt;br&gt;génère dist/&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=16;fontFamily=Times New Roman;" parent="frontend-lane" vertex="1">
+                    <mxGeometry x="455" y="73" width="170" height="88" as="geometry"/>
+                </mxCell>
+                <mxCell id="fe4" value="&lt;b&gt;&lt;font style=&quot;font-size: 17px;&quot;&gt;SSH agent&lt;br&gt;&lt;/font&gt;&lt;/b&gt;&lt;font&gt;clé privée + known hosts&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=16;fontFamily=Times New Roman;" parent="frontend-lane" vertex="1">
+                    <mxGeometry x="665" y="83" width="170" height="68" as="geometry"/>
+                </mxCell>
+                <mxCell id="fe5" value="&lt;b&gt;&lt;font style=&quot;font-size: 17px;&quot;&gt;Synchronisation&lt;br&gt;&lt;/font&gt;&lt;/b&gt;&lt;font&gt;rsync -az --delete dist/&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=16;fontFamily=Times New Roman;" parent="frontend-lane" vertex="1">
+                    <mxGeometry x="875" y="83" width="170" height="68" as="geometry"/>
+                </mxCell>
+                <mxCell id="fe6" value="React statique&lt;br&gt;&lt;font&gt;Vite build&lt;br&gt;routing hash&lt;/font&gt;" style="shape=cylinder3d;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=16;fontFamily=Times New Roman;" parent="frontend-lane" vertex="1">
+                    <mxGeometry x="1085" y="70" width="175" height="95" as="geometry"/>
+                </mxCell>
+                <mxCell id="fe-e1" style="endArrow=block;html=1;rounded=0;strokeWidth=1.6;strokeColor=#82b366;fontFamily=Times New Roman;" parent="frontend-lane" source="fe1" target="fe2" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="fe-e2" style="endArrow=block;html=1;rounded=0;strokeWidth=1.6;strokeColor=#82b366;fontFamily=Times New Roman;" parent="frontend-lane" source="fe2" target="fe3" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="fe-e3" style="endArrow=block;html=1;rounded=0;strokeWidth=1.6;strokeColor=#82b366;fontFamily=Times New Roman;" parent="frontend-lane" source="fe3" target="fe4" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="fe-e4" style="endArrow=block;html=1;rounded=0;strokeWidth=1.6;strokeColor=#82b366;fontFamily=Times New Roman;" parent="frontend-lane" source="fe4" target="fe5" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="fe-e5" style="endArrow=block;html=1;rounded=0;strokeWidth=1.6;strokeColor=#82b366;fontFamily=Times New Roman;" parent="frontend-lane" source="fe5" target="fe6" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="secrets" value="&lt;b&gt;&lt;font style=&quot;font-size: 18px;&quot;&gt;Secrets GitHub Actions&lt;br&gt;&lt;/font&gt;&lt;/b&gt;&lt;font&gt;SSH_HOST, SSH_USER, SSH_PORT,&lt;br&gt;SSH_PRIVATE_KEY, SSH_BE_PATH, SSH_FE_PATH&lt;/font&gt;" style="shape=note;whiteSpace=wrap;html=1;backgroundOutline=1;darkOpacity=0.05;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=16;fontFamily=Times New Roman;" parent="1" vertex="1">
+                    <mxGeometry x="520" y="360" width="300" height="90" as="geometry"/>
+                </mxCell>
+                <mxCell id="hosting" value="Infrastructure ValaBlue&lt;br&gt;&lt;font style=&quot;font-size: 13px;&quot;&gt;cPanel + SSH + SSL&lt;br&gt;backend Laravel, frontend React, base de données 5 Go&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=15;fontStyle=1;fontFamily=Times New Roman;" parent="1" vertex="1">
+                    <mxGeometry x="950" y="361" width="370" height="90" as="geometry"/>
+                </mxCell>
+                <mxCell id="trig-be" style="endArrow=block;html=1;rounded=0;strokeWidth=1.8;strokeColor=#b85450;exitX=0.25;exitY=0;exitDx=0;exitDy=0;entryX=0.25;entryY=1;entryDx=0;entryDy=0;fontFamily=Times New Roman;" parent="1" source="trigger" target="be1" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="trig-fe" style="endArrow=block;html=1;rounded=0;strokeWidth=1.8;strokeColor=#82b366;exitX=0.25;exitY=1;exitDx=0;exitDy=0;entryX=0.25;entryY=0;entryDx=0;entryDy=0;fontFamily=Times New Roman;" parent="1" source="trigger" target="fe1" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="be-host" style="endArrow=block;html=1;rounded=0;strokeWidth=1.5;strokeColor=#6c8ebf;fontFamily=Times New Roman;entryX=0.75;entryY=0;entryDx=0;entryDy=0;" parent="1" source="be6" target="hosting" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="fe-host" style="endArrow=block;html=1;rounded=0;strokeWidth=1.5;strokeColor=#6c8ebf;fontFamily=Times New Roman;entryX=0.75;entryY=1;entryDx=0;entryDy=0;" parent="1" source="fe6" target="hosting" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="secret-be" style="endArrow=none;html=1;rounded=0;dashed=1;strokeWidth=1.3;strokeColor=#d6b656;exitX=0;exitY=0.5;exitDx=0;exitDy=0;exitPerimeter=0;fontFamily=Times New Roman;" parent="1" source="secrets" target="be2" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="secret-fe" style="endArrow=none;html=1;rounded=0;dashed=1;strokeWidth=1.3;strokeColor=#d6b656;exitX=0;exitY=0;exitDx=300;exitDy=60;exitPerimeter=0;fontFamily=Times New Roman;" parent="1" source="secrets" target="fe4" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="840" y="510"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+</mxfile>

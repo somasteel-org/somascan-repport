@@ -1,0 +1,44 @@
+%% F24 - Modele de securite : roles, permissions et jetons API
+flowchart TB
+    CLIENT["Client React / Flutter"]
+    TOKEN["Bearer token<br/>Laravel Sanctum"]
+    RBAC["Middleware RBAC<br/>verification du role"]
+    BUSINESS["Validation metier<br/>role + localisation + action"]
+    ENDPOINT["Endpoint protege<br/>scan / admin / rapport"]
+    ERRORS["Reponses de securite<br/>401 token absent ou invalide<br/>403 role non autorise<br/>4xx action metier refusee"]
+
+    subgraph ROLES["Roles du systeme"]
+        ADMIN["ADMIN / Agent logistique<br/>Application web<br/>Gerer utilisateurs<br/>Gerer camions et QR codes<br/>Suivre / annuler trajets<br/>Consulter logs<br/>Generer rapports<br/>Configurer scan_flows"]
+        COMPANY["COMPANY_OPERATOR<br/>Operateur usine<br/>Application mobile<br/>Scan START<br/>Scan RETURN<br/>Historique recent"]
+        PORT["PORT_OPERATOR<br/>Operateur port<br/>Application mobile<br/>Scan ARRIVE<br/>Scan LEAVE<br/>Historique recent"]
+    end
+
+    RULE["Regle critique de scan<br/>Un utilisateur authentifie ne peut executer que les actions compatibles avec son role et sa localisation."]
+
+    CLIENT -->|"Authorization: Bearer"| TOKEN
+    TOKEN -->|"session valide"| RBAC
+    RBAC -->|"role autorise"| BUSINESS
+    BUSINESS -->|"action valide"| ENDPOINT
+    RBAC -.->|"refus"| ERRORS
+    BUSINESS -.->|"erreur metier"| ERRORS
+
+    ADMIN -.->|"permissions admin"| ENDPOINT
+    COMPANY -.->|"START / RETURN"| RULE
+    PORT -.->|"ARRIVE / LEAVE"| RULE
+    RULE -.-> BUSINESS
+
+    classDef client fill:#e8f4ff,stroke:#3778bf,color:#0f2742
+    classDef token fill:#fff5d8,stroke:#b78500,color:#3d2b00
+    classDef security fill:#ffe9e6,stroke:#c24b3a,color:#3b100b
+    classDef endpoint fill:#eef7ed,stroke:#4f8a45,color:#173317
+    classDef roleAdmin fill:#f1e8ff,stroke:#7654a6,color:#25123d
+    classDef roleOp fill:#eef7ed,stroke:#4f8a45,color:#173317
+    classDef note fill:#ffffff,stroke:#b3b3b3,color:#222
+
+    class CLIENT client
+    class TOKEN token
+    class RBAC,BUSINESS,ERRORS security
+    class ENDPOINT endpoint
+    class ADMIN roleAdmin
+    class COMPANY,PORT roleOp
+    class RULE note

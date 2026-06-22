@@ -1,0 +1,42 @@
+%% F23 - Sequence d'authentification et controle des roles
+sequenceDiagram
+    autonumber
+    actor U as Utilisateur
+    participant CLIENT as Client React ou Flutter
+    participant AUTH as AuthController Laravel
+    participant SANCTUM as Laravel Sanctum
+    participant MW as Middleware auth:sanctum + role
+    participant CTRL as Controleur protege
+    participant DB as Base de donnees
+
+    U->>CLIENT: Saisir email et mot de passe
+    CLIENT->>AUTH: POST /api/login
+    AUTH->>DB: Rechercher utilisateur actif
+    DB-->>AUTH: Utilisateur + role
+    AUTH->>AUTH: Verifier mot de passe
+    AUTH->>SANCTUM: Creer token API
+    SANCTUM->>DB: Stocker token hache
+    AUTH-->>CLIENT: Token + profil + role
+    CLIENT->>CLIENT: Stocker token localement
+
+    U->>CLIENT: Ouvrir une page ou action protegee
+    CLIENT->>MW: Requete API avec Authorization Bearer
+    MW->>SANCTUM: Valider token
+    SANCTUM->>DB: Lire token et utilisateur
+    DB-->>SANCTUM: Session valide
+    SANCTUM-->>MW: Utilisateur authentifie
+    MW->>MW: Verifier role requis
+
+    alt Role autorise
+        MW->>CTRL: Transmettre la requete
+        CTRL->>DB: Lire ou modifier les donnees
+        DB-->>CTRL: Donnees
+        CTRL-->>CLIENT: 200 OK
+        CLIENT-->>U: Afficher l'ecran autorise
+    else Token absent ou invalide
+        MW-->>CLIENT: 401 Unauthorized
+        CLIENT-->>U: Redirection vers login
+    else Role insuffisant
+        MW-->>CLIENT: 403 Forbidden
+        CLIENT-->>U: Afficher acces refuse
+    end

@@ -1,0 +1,93 @@
+<mxfile host="65bd71144e">
+    <diagram id="diagramme-deploiement-uml" name="F49 - Diagramme de deploiement UML">
+        <mxGraphModel dx="1436" dy="919" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1400" pageHeight="900" math="0" shadow="0">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                <mxCell id="3" value="" style="ellipse;shape=cloud;whiteSpace=wrap;html=1;align=left;" vertex="1" parent="1">
+                    <mxGeometry x="500" y="515" width="400" height="220" as="geometry"/>
+                </mxCell>
+                <mxCell id="client-zone" value="Postes et appareils utilisateurs" style="swimlane;html=1;rounded=1;startSize=36;fillColor=#eaf4ff;strokeColor=#6c8ebf;fontSize=18;fontStyle=1;fontFamily=Garamond;" vertex="1" parent="1">
+                    <mxGeometry x="450" y="280" width="540" height="190" as="geometry"/>
+                </mxCell>
+                <mxCell id="android" value="&lt;b&gt;&lt;font style=&quot;font-size: 15px;&quot;&gt;Téléphones Android entreprise&lt;br&gt;&lt;/font&gt;&lt;/b&gt;&lt;font style=&quot;font-size: 15px;&quot;&gt;Application Flutter installée manuellement&lt;/font&gt;" style="shape=mxgraph.android.phone2;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=14;fontFamily=Garamond;" parent="client-zone" vertex="1">
+                    <mxGeometry x="290" y="60" width="220" height="100" as="geometry"/>
+                </mxCell>
+                <mxCell id="5" value="&lt;font style=&quot;&quot;&gt;&lt;b style=&quot;&quot;&gt;&lt;font style=&quot;font-size: 17px;&quot;&gt;&lt;span style=&quot;color: rgb(0, 0, 0);&quot;&gt;Navigateur web&lt;/span&gt;&lt;br style=&quot;color: rgb(63, 63, 63); scrollbar-color: rgb(226, 226, 226) rgb(251, 251, 251);&quot;&gt;&lt;/font&gt;&lt;/b&gt;&lt;font style=&quot;font-size: 15px; color: rgb(63, 63, 63); scrollbar-color: rgb(226, 226, 226) rgb(251, 251, 251);&quot;&gt;Agent logistique / administration&lt;/font&gt;&lt;/font&gt;" style="shape=mxgraph.android.phone2;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=14;fontFamily=Garamond;" vertex="1" parent="client-zone">
+                    <mxGeometry x="30" y="60" width="220" height="100" as="geometry"/>
+                </mxCell>
+                <mxCell id="hosting-zone" value="Hébergement mutualisé ValaBlue" style="swimlane;html=1;rounded=1;startSize=46;fillColor=#f8f8f8;strokeColor=#666666;fontSize=18;fontStyle=1;fontFamily=Garamond;" vertex="1" parent="1">
+                    <mxGeometry x="450" y="740" width="590" height="545" as="geometry"/>
+                </mxCell>
+                <mxCell id="react" value="&lt;b&gt;Application web React&lt;br&gt;&lt;/b&gt;&lt;font&gt;fichiers statiques dist/&lt;br&gt;routage hash&lt;/font&gt;" style="shape=component;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=17;fontFamily=Garamond;" parent="hosting-zone" vertex="1">
+                    <mxGeometry x="315" y="180" width="250" height="95" as="geometry"/>
+                </mxCell>
+                <mxCell id="laravel" value="&lt;b&gt;Backend Laravel API&lt;br&gt;&lt;/b&gt;&lt;font&gt;routes /api, Sanctum, logique métier&lt;/font&gt;" style="shape=component;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=17;fontFamily=Garamond;" parent="hosting-zone" vertex="1">
+                    <mxGeometry x="320" y="340" width="245" height="95" as="geometry"/>
+                </mxCell>
+                <mxCell id="e-react-api" value="appels REST JSON" style="endArrow=block;html=1;rounded=0;strokeWidth=1.5;strokeColor=#6c8ebf;fontSize=15;fontFamily=Garamond;dashed=1;" parent="hosting-zone" source="react" target="laravel" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e-laravel-db" value="lecture / écriture" style="endArrow=block;html=1;rounded=0;strokeWidth=1;strokeColor=#d6b656;fontSize=16;fontFamily=Garamond;entryX=0.5;entryY=0;entryDx=0;entryDy=0;entryPerimeter=0;edgeStyle=orthogonalEdgeStyle;" parent="hosting-zone" source="laravel" target="2" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="255" y="430.241935483871" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="cpanel" value="cPanel / SSH&lt;br&gt;&lt;font&gt;accès d&#39;administration hébergement&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=17;fontFamily=Garamond;" vertex="1" parent="hosting-zone">
+                    <mxGeometry x="360" y="75" width="180" height="70" as="geometry"/>
+                </mxCell>
+                <mxCell id="web-server" value="Nginx" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#666666;fontSize=17;fontStyle=1;fontFamily=Garamond;" vertex="1" parent="hosting-zone">
+                    <mxGeometry x="40" y="110" width="180" height="70" as="geometry"/>
+                </mxCell>
+                <mxCell id="e-nginx-react" value="sert les fichiers statiques" style="endArrow=block;html=1;rounded=0;strokeWidth=1;strokeColor=#6c8ebf;fontSize=16;fontFamily=Garamond;entryX=0;entryY=0.7;entryDx=0;entryDy=0;" parent="hosting-zone" source="web-server" target="react" edge="1">
+                    <mxGeometry x="-0.148" y="10" relative="1" as="geometry">
+                        <mxPoint as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="e-cpanel-host" value="administration" style="endArrow=none;html=1;rounded=0;dashed=1;strokeWidth=1.2;strokeColor=#d6b656;fontSize=16;fontFamily=Garamond;" edge="1" parent="hosting-zone" source="cpanel" target="web-server">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="php" value="PHP 8.2 + Composer" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#666666;fontSize=17;fontStyle=1;fontFamily=Garamond;" parent="hosting-zone" vertex="1">
+                    <mxGeometry x="40" y="237.5" width="180" height="70" as="geometry"/>
+                </mxCell>
+                <mxCell id="e-php-laravel" value="exécution PHP" style="endArrow=block;html=1;rounded=0;strokeWidth=1;strokeColor=#b85450;fontSize=16;fontFamily=Garamond;edgeStyle=orthogonalEdgeStyle;" parent="hosting-zone" source="php" target="laravel" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="130" y="360"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="e-nginx-php" value="requêtes /api" style="endArrow=block;html=1;rounded=0;strokeWidth=1;strokeColor=#b85450;fontSize=16;fontFamily=Garamond;" edge="1" parent="hosting-zone" source="web-server" target="php">
+                    <mxGeometry x="-0.3043" y="-20" relative="1" as="geometry">
+                        <mxPoint as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="2" value="&lt;br style=&quot;color: rgb(63, 63, 63); scrollbar-color: rgb(226, 226, 226) rgb(251, 251, 251); font-family: Garamond; font-size: 14px;&quot;&gt;&lt;font style=&quot;font-size: 17px;&quot;&gt;&lt;b&gt;&lt;span style=&quot;color: rgb(0, 0, 0); font-family: Garamond;&quot;&gt;Base de données production&lt;/span&gt;&lt;br style=&quot;color: rgb(63, 63, 63); scrollbar-color: rgb(226, 226, 226) rgb(251, 251, 251); font-family: Garamond;&quot;&gt;&lt;/b&gt;&lt;/font&gt;&lt;font style=&quot;color: rgb(63, 63, 63); scrollbar-color: rgb(226, 226, 226) rgb(251, 251, 251); font-family: Garamond;&quot;&gt;&lt;font style=&quot;font-size: 16px;&quot;&gt;fournie par l&#39;hébergeur&lt;br style=&quot;color: rgb(63, 63, 63); scrollbar-color: rgb(226, 226, 226) rgb(251, 251, 251);&quot;&gt;&lt;/font&gt;&lt;span style=&quot;font-size: 13px;&quot;&gt;&amp;nbsp;&lt;/span&gt;&lt;/font&gt;" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=10;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="hosting-zone">
+                    <mxGeometry x="25" y="425" width="275" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="e-android-https" value="requêtes API HTTPS" style="endArrow=block;html=1;rounded=0;strokeWidth=1;strokeColor=#82b366;fontSize=16;fontFamily=Garamond;entryX=1;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="android" target="internet">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e-browser-https" value="accès web HTTPS" style="endArrow=block;html=1;rounded=0;strokeWidth=1;strokeColor=#CC99FF;fontSize=16;fontFamily=Garamond;exitX=0.291;exitY=0.995;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="5" target="internet">
+                    <mxGeometry x="-0.2304" relative="1" as="geometry">
+                        <mxPoint x="355" y="594.2074820477603" as="sourcePoint"/>
+                        <mxPoint as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="e-https-nginx" value="trafic entrant" style="endArrow=block;html=1;rounded=0;strokeWidth=1;strokeColor=#666666;fontSize=16;fontFamily=Garamond;edgeStyle=orthogonalEdgeStyle;" edge="1" parent="1" source="internet" target="web-server">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="580" y="670"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="internet" value="HTTPS&lt;br&gt;&lt;font style=&quot;font-size: 13px;&quot;&gt;domaines et sous-domaines SSL&lt;/font&gt;" style="ellipse;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#666666;fontSize=15;fontStyle=1;fontFamily=Garamond;" vertex="1" parent="1">
+                    <mxGeometry x="650" y="595" width="170" height="115" as="geometry"/>
+                </mxCell>
+                <mxCell id="4" value="&lt;span style=&quot;color: rgb(0, 0, 0); font-family: Garamond; font-size: 17px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 700; letter-spacing: normal; orphans: 2; text-align: center; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: nowrap; background-color: rgb(251, 251, 251); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; display: inline !important; float: none;&quot;&gt;Réseau public sécurisé&lt;/span&gt;" style="text;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                    <mxGeometry x="610" y="555" width="200" height="40" as="geometry"/>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+</mxfile>

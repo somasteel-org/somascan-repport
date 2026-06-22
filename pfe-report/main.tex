@@ -1,0 +1,65 @@
+\documentclass[12pt,a4paper,oneside]{report}
+
+% Allow inclusion of exported diagrams saved as PDF 1.7.
+\ifdefined\pdfminorversion
+  \pdfminorversion=7
+\fi
+\ifdefined\pdfvariable
+  \pdfvariable minorversion=7
+\fi
+\special{pdf:minorversion 7}
+
+\input{config/packages}
+\input{config/commands}
+\input{config/style}
+
+\title{Titre du rapport PFE}
+\author{Nom de l'etudiant}
+\date{\today}
+
+\begin{document}
+
+% -------------------- Page de garde --------------------
+\input{frontmatter/cover}
+
+% -------------------- Pages preliminaires --------------------
+\pagenumbering{roman}
+\setcounter{page}{1}
+% \input{frontmatter/dedication}
+\input{frontmatter/acknowledgements}
+\input{frontmatter/abstract}
+\input{frontmatter/acronyms}
+
+\tableofcontents
+\phantomsection
+\addcontentsline{toc}{chapter}{Liste des figures}
+\listoffigures
+\phantomsection
+\addcontentsline{toc}{chapter}{Liste des tableaux}
+\listoftables
+\clearpage
+
+% -------------------- Corps du rapport --------------------
+\pagenumbering{arabic}
+\setcounter{page}{1}
+
+\input{chapters/general-introduction}
+\input{chapters/chapter1-general-context}
+\input{chapters/chapter2-analysis-and-specification}
+\input{chapters/chapter3-design-and-architecture}
+\input{chapters/chapter4-implementation}
+\input{chapters/chapter5-deployment-and-devops}
+\input{chapters/conclusion}
+
+% -------------------- Bibliographie / Webographie --------------------
+\clearpage
+\input{chapters/bibliography-webography}
+
+
+% -------------------- Annexes --------------------
+\appendix
+\input{appendices/appendix-api}
+\input{appendices/appendix-deployment-configuration}
+
+
+\end{document}

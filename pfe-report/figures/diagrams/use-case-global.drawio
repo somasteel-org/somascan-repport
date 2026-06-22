@@ -1,0 +1,121 @@
+<mxfile host="65bd71144e">
+    <diagram id="use-case-global" name="F10 - Cas utilisation global">
+        <mxGraphModel dx="1340" dy="1246" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                <mxCell id="title" value="Diagramme de cas d&#39;utilisation global de SomaScan" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontSize=20;fontStyle=1;fontFamily=Garamond;" parent="1" vertex="1">
+                    <mxGeometry x="192.5" y="20" width="670" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="boundary" value="SomaScan" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=16;fontStyle=1;verticalAlign=top;spacingTop=10;fontFamily=Garamond;" parent="1" vertex="1">
+                    <mxGeometry x="215" y="80" width="625" height="970" as="geometry"/>
+                </mxCell>
+                <mxCell id="admin" value="Agent logistique" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;fontSize=16;fontFamily=Garamond;" parent="1" vertex="1">
+                    <mxGeometry x="50" y="650" width="70" height="110" as="geometry"/>
+                </mxCell>
+                <mxCell id="company" value="Operateur usine" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;fontSize=16;fontFamily=Garamond;" parent="1" vertex="1">
+                    <mxGeometry x="50" y="185" width="70" height="110" as="geometry"/>
+                </mxCell>
+                <mxCell id="port" value="Operateur port" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;fontSize=16;fontFamily=Garamond;" parent="1" vertex="1">
+                    <mxGeometry x="60" y="414" width="70" height="110" as="geometry"/>
+                </mxCell>
+                <mxCell id="uc-auth" value="S&#39;authentifier" style="ellipse;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=17;fontFamily=Garamond;" parent="1" vertex="1">
+                    <mxGeometry x="315" y="490" width="160" height="55" as="geometry"/>
+                </mxCell>
+                <mxCell id="uc-users" value="Gerer utilisateurs" style="ellipse;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=17;fontFamily=Garamond;" parent="1" vertex="1">
+                    <mxGeometry x="280" y="930" width="170" height="55" as="geometry"/>
+                </mxCell>
+                <mxCell id="uc-trucks" value="Gerer camions&#xa;et QR codes" style="ellipse;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=17;fontFamily=Garamond;" parent="1" vertex="1">
+                    <mxGeometry x="370" y="860" width="170" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="uc-trips" value="Suivre trajets" style="ellipse;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=17;fontFamily=Garamond;" parent="1" vertex="1">
+                    <mxGeometry x="290" y="790" width="170" height="55" as="geometry"/>
+                </mxCell>
+                <mxCell id="uc-cancel" value="Annuler trajet&#xa;et notes" style="ellipse;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=17;fontFamily=Garamond;" parent="1" vertex="1">
+                    <mxGeometry x="470" y="760" width="170" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="uc-logs" value="Consulter logs&#xa;de scan" style="ellipse;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=17;fontFamily=Garamond;" parent="1" vertex="1">
+                    <mxGeometry x="310" y="580" width="170" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="uc-reports" value="Generer rapports&#xa;et exports" style="ellipse;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=17;fontFamily=Garamond;" parent="1" vertex="1">
+                    <mxGeometry x="310" y="680" width="170" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="uc-flow" value="Configurer flux&#xa;de scan" style="ellipse;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=17;fontFamily=Garamond;" parent="1" vertex="1">
+                    <mxGeometry x="510" y="600" width="170" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="uc-start" value="Scanner START" style="ellipse;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=17;fontFamily=Garamond;" parent="1" vertex="1">
+                    <mxGeometry x="320" y="150" width="160" height="55" as="geometry"/>
+                </mxCell>
+                <mxCell id="uc-return" value="Scanner RETURN" style="ellipse;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=17;fontFamily=Garamond;" parent="1" vertex="1">
+                    <mxGeometry x="515" y="190" width="160" height="55" as="geometry"/>
+                </mxCell>
+                <mxCell id="uc-arrive" value="Scanner ARRIVE" style="ellipse;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=17;fontFamily=Garamond;" parent="1" vertex="1">
+                    <mxGeometry x="550" y="350" width="160" height="55" as="geometry"/>
+                </mxCell>
+                <mxCell id="uc-leave" value="Scanner LEAVE" style="ellipse;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=17;fontFamily=Garamond;" parent="1" vertex="1">
+                    <mxGeometry x="460" y="414" width="160" height="55" as="geometry"/>
+                </mxCell>
+                <mxCell id="uc-history" value="Consulter historique&#xa;recent" style="ellipse;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=17;fontFamily=Garamond;" parent="1" vertex="1">
+                    <mxGeometry x="340" y="290" width="170" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="uc-basic" value="Consulter infos&#xa;camion" style="ellipse;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=17;fontFamily=Garamond;" parent="1" vertex="1">
+                    <mxGeometry x="630" y="260" width="170" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="e-admin-auth" style="endArrow=none;html=1;rounded=0;strokeWidth=1.5;fontFamily=Garamond;" parent="1" source="admin" target="uc-auth" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e-admin-users" style="endArrow=none;html=1;rounded=0;strokeWidth=1.5;fontFamily=Garamond;" parent="1" source="admin" target="uc-users" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e-admin-trucks" style="endArrow=none;html=1;rounded=0;strokeWidth=1.5;entryX=0;entryY=0.5;entryDx=0;entryDy=0;fontFamily=Garamond;" parent="1" source="admin" target="uc-trucks" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e-admin-trips" style="endArrow=none;html=1;rounded=0;strokeWidth=1.5;fontFamily=Garamond;" parent="1" source="admin" target="uc-trips" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e-admin-cancel" style="endArrow=none;html=1;rounded=0;strokeWidth=1.5;fontFamily=Garamond;" parent="1" source="admin" target="uc-cancel" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e-admin-logs" style="endArrow=none;html=1;rounded=0;strokeWidth=1.5;fontFamily=Garamond;" parent="1" source="admin" target="uc-logs" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e-admin-reports" style="endArrow=none;html=1;rounded=0;strokeWidth=1.5;fontFamily=Garamond;" parent="1" source="admin" target="uc-reports" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e-admin-flow" style="endArrow=none;html=1;rounded=0;strokeWidth=1.5;fontFamily=Garamond;" parent="1" source="admin" target="uc-flow" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e-company-auth" style="endArrow=none;html=1;rounded=0;strokeWidth=1.5;fontFamily=Garamond;" parent="1" source="company" target="uc-auth" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e-company-start" style="endArrow=none;html=1;rounded=0;strokeWidth=1.5;fontFamily=Garamond;" parent="1" source="company" target="uc-start" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e-company-return" style="endArrow=none;html=1;rounded=0;strokeWidth=1.5;fontFamily=Garamond;" parent="1" source="company" target="uc-return" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e-company-history" style="endArrow=none;html=1;rounded=0;strokeWidth=1.5;fontFamily=Garamond;" parent="1" source="company" target="uc-history" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e-company-basic" style="endArrow=none;html=1;rounded=0;strokeWidth=1.5;fontFamily=Garamond;" parent="1" source="company" target="uc-basic" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e-port-auth" style="endArrow=none;html=1;rounded=0;strokeWidth=1.5;fontFamily=Garamond;" parent="1" source="port" target="uc-auth" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e-port-arrive" style="endArrow=none;html=1;rounded=0;strokeWidth=1.5;fontFamily=Garamond;" parent="1" source="port" target="uc-arrive" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e-port-leave" style="endArrow=none;html=1;rounded=0;strokeWidth=1.5;fontFamily=Garamond;" parent="1" source="port" target="uc-leave" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e-port-history" style="endArrow=none;html=1;rounded=0;strokeWidth=1.5;fontFamily=Garamond;" parent="1" source="port" target="uc-history" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e-port-basic" style="endArrow=none;html=1;rounded=0;strokeWidth=1.5;fontFamily=Garamond;" parent="1" source="port" target="uc-basic" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+</mxfile>

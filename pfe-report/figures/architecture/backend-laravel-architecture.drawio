@@ -1,0 +1,142 @@
+<mxfile host="65bd71144e">
+    <diagram id="backend-laravel-architecture" name="F16 - Backend Laravel">
+        <mxGraphModel dx="916" dy="1799" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1500" pageHeight="1000" math="0" shadow="0">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                <mxCell id="security-box" value="Couche securite" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe9e6;strokeColor=#c24b3a;fontSize=16;fontStyle=1;verticalAlign=top;spacingTop=12;" parent="1" vertex="1">
+                    <mxGeometry x="965" y="-290" width="270" height="330" as="geometry"/>
+                </mxCell>
+                <mxCell id="controllers-box" value="Couche controleurs" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e8f4ff;strokeColor=#3778bf;fontSize=16;fontStyle=1;verticalAlign=top;spacingTop=12;" parent="1" vertex="1">
+                    <mxGeometry x="610" y="100" width="270" height="410" as="geometry"/>
+                </mxCell>
+                <mxCell id="services-box" value="Couche services metier" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#eef7ed;strokeColor=#4f8a45;fontSize=16;fontStyle=1;verticalAlign=top;spacingTop=12;" parent="1" vertex="1">
+                    <mxGeometry x="950" y="85" width="290" height="485" as="geometry"/>
+                </mxCell>
+                <mxCell id="domain-box" value="Domaine et persistance" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff5d8;strokeColor=#b78500;fontSize=16;fontStyle=1;verticalAlign=top;spacingTop=12;" parent="1" vertex="1">
+                    <mxGeometry x="1280" y="270" width="300" height="274.75" as="geometry"/>
+                </mxCell>
+                <mxCell id="req" value="Requetes HTTP&#xa;/api" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f7f7f7;strokeColor=#666666;fontSize=13;fontStyle=1" parent="1" vertex="1">
+                    <mxGeometry x="740" y="-104" width="150" height="70" as="geometry"/>
+                </mxCell>
+                <mxCell id="routes" value="Routes API" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f7f7f7;strokeColor=#666666;fontSize=13;fontStyle=1" parent="1" vertex="1">
+                    <mxGeometry x="740" y="-233" width="150" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="sanctum" value="Laravel Sanctum&#xa;verification du token" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#c24b3a;fontSize=12;" parent="1" vertex="1">
+                    <mxGeometry x="1010" y="-235" width="180" height="64" as="geometry"/>
+                </mxCell>
+                <mxCell id="rbac" value="Middleware de roles&#xa;ADMIN / COMPANY_OPERATOR / PORT_OPERATOR" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#c24b3a;fontSize=12;" parent="1" vertex="1">
+                    <mxGeometry x="995" y="-140" width="210" height="75" as="geometry"/>
+                </mxCell>
+                <mxCell id="validation" value="Validation&#xa;des requetes" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#c24b3a;fontSize=12;" parent="1" vertex="1">
+                    <mxGeometry x="1010" y="-35" width="180" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="auth-c" value="AuthController" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#3778bf;fontSize=12;" parent="1" vertex="1">
+                    <mxGeometry x="660" y="150" width="170" height="42" as="geometry"/>
+                </mxCell>
+                <mxCell id="scan-c" value="ScanController" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#3778bf;fontSize=12;" parent="1" vertex="1">
+                    <mxGeometry x="660" y="210" width="170" height="42" as="geometry"/>
+                </mxCell>
+                <mxCell id="trip-c" value="TripController" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#3778bf;fontSize=12;" parent="1" vertex="1">
+                    <mxGeometry x="660" y="270" width="170" height="42" as="geometry"/>
+                </mxCell>
+                <mxCell id="truck-c" value="TruckController" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#3778bf;fontSize=12;" parent="1" vertex="1">
+                    <mxGeometry x="660" y="330" width="170" height="42" as="geometry"/>
+                </mxCell>
+                <mxCell id="user-c" value="UserController" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#3778bf;fontSize=12;" parent="1" vertex="1">
+                    <mxGeometry x="660" y="390" width="170" height="42" as="geometry"/>
+                </mxCell>
+                <mxCell id="report-c" value="ReportController" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#3778bf;fontSize=12;" parent="1" vertex="1">
+                    <mxGeometry x="660" y="450" width="170" height="42" as="geometry"/>
+                </mxCell>
+                <mxCell id="auth-s" value="AuthService" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#4f8a45;fontSize=12;" parent="1" vertex="1">
+                    <mxGeometry x="1010" y="130" width="170" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="scan-s" value="ScanService" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#4f8a45;fontSize=12;" parent="1" vertex="1">
+                    <mxGeometry x="1010" y="185" width="170" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="flow-s" value="ScanFlowService" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#4f8a45;fontSize=12;" parent="1" vertex="1">
+                    <mxGeometry x="1010" y="276.25" width="170" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="trip-s" value="TripService" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#4f8a45;fontSize=12;" parent="1" vertex="1">
+                    <mxGeometry x="1010" y="342.25" width="170" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="truck-s" value="TruckService" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#4f8a45;fontSize=12;" parent="1" vertex="1">
+                    <mxGeometry x="1010" y="394.75" width="170" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="user-s" value="UserService" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#4f8a45;fontSize=12;" parent="1" vertex="1">
+                    <mxGeometry x="1010" y="449.75" width="170" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="report-s" value="ReportService" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#4f8a45;fontSize=12;" parent="1" vertex="1">
+                    <mxGeometry x="1010" y="504.75" width="170" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="models" value="Modeles Eloquent&#xa;User, Truck, Trip, ScanLog, ScanFlow" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#b78500;fontSize=13;" parent="1" vertex="1">
+                    <mxGeometry x="1300" y="322.25" width="260" height="82" as="geometry"/>
+                </mxCell>
+                <mxCell id="db" value="MySQL / MariaDB" style="shape=cylinder3d;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;fillColor=#ffffff;strokeColor=#b78500;fontSize=13;" parent="1" vertex="1">
+                    <mxGeometry x="1350" y="448.75" width="160" height="86" as="geometry"/>
+                </mxCell>
+                <mxCell id="res" value="API Resources&#xa;JSON normalise" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f1e8ff;strokeColor=#7654a6;fontSize=13;" parent="1" vertex="1">
+                    <mxGeometry x="1020" y="630" width="150" height="64" as="geometry"/>
+                </mxCell>
+                <mxCell id="err" value="Gestion des erreurs&#xa;401, 403, 404, erreurs metier" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f1e8ff;strokeColor=#7654a6;fontSize=13;" parent="1" vertex="1">
+                    <mxGeometry x="1340" y="168" width="190" height="74" as="geometry"/>
+                </mxCell>
+                <mxCell id="e-req-routes" value="" style="endArrow=block;html=1;rounded=0;strokeWidth=1.5;" parent="1" source="req" target="routes" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e-routes-sanctum" value="" style="endArrow=block;html=1;rounded=0;strokeWidth=1.5;" parent="1" source="routes" target="sanctum" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e-sanctum-rbac" value="" style="endArrow=block;html=1;rounded=0;strokeWidth=1.5;" parent="1" source="sanctum" target="rbac" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e-rbac-validation" value="" style="endArrow=block;html=1;rounded=0;strokeWidth=1.5;" parent="1" source="rbac" target="validation" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e-validation-controllers" value="dispatch" style="endArrow=block;html=1;rounded=0;fontSize=11;strokeWidth=1.5;edgeStyle=orthogonalEdgeStyle;" parent="1" source="validation" target="scan-c" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="1100" y="60"/>
+                            <mxPoint x="570" y="60"/>
+                            <mxPoint x="570" y="231"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="e-auth" value="" style="endArrow=block;html=1;rounded=0;strokeWidth=1.4;" parent="1" source="auth-c" target="auth-s" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e-scan" value="" style="endArrow=block;html=1;rounded=0;strokeWidth=1.4;" parent="1" source="scan-c" target="scan-s" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e-trip" value="" style="endArrow=block;html=1;rounded=0;strokeWidth=1.4;" parent="1" source="trip-c" target="trip-s" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e-truck" value="" style="endArrow=block;html=1;rounded=0;strokeWidth=1.4;" parent="1" source="truck-c" target="truck-s" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e-user" value="" style="endArrow=block;html=1;rounded=0;strokeWidth=1.4;" parent="1" source="user-c" target="user-s" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e-report" value="" style="endArrow=block;html=1;rounded=0;strokeWidth=1.4;" parent="1" source="report-c" target="report-s" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e-flow" value="regles de flux" style="endArrow=block;html=1;rounded=0;fontSize=11;strokeWidth=1.4;" parent="1" source="scan-s" target="flow-s" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e-services-models" value="Eloquent" style="endArrow=block;html=1;rounded=0;fontSize=11;strokeWidth=1.5;" parent="1" source="trip-s" target="models" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e-models-db" value="SQL" style="endArrow=block;html=1;rounded=0;fontSize=11;strokeWidth=1.5;" parent="1" source="models" target="db" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e-services-res" value="reponse" style="endArrow=block;html=1;rounded=0;fontSize=11;strokeWidth=1.4;" parent="1" source="report-s" target="res" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e-services-err" value="erreurs" style="endArrow=block;html=1;rounded=0;fontSize=11;strokeWidth=1.4;dashed=1;" parent="1" source="scan-s" target="err" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+</mxfile>

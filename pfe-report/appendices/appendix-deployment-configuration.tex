@@ -1,0 +1,212 @@
+\chapter{Configuration de déploiement et pipelines CI/CD}
+
+Cette annexe complète le chapitre consacré au déploiement en présentant les éléments techniques utilisés pour automatiser la mise en production de SomaScan. Elle regroupe les principes de configuration, les secrets nécessaires et les deux workflows GitHub Actions utilisés pour le backend Laravel et le frontend React.
+
+\section{Principe général}
+
+La branche \codepath{master} représente l'état validé du projet. Lorsqu'une Pull Request est validée puis fusionnée dans cette branche, les workflows GitHub Actions peuvent déclencher la mise à jour de l'environnement de production. Les deux applications déployées automatiquement sont :
+
+\begin{itemize}
+    \item le backend Laravel, installé sur le serveur d'hébergement et mis à jour par SSH ;
+    \item le frontend React, compilé avec Node.js puis synchronisé vers le dossier de production.
+\end{itemize}
+
+Les informations sensibles ne sont pas écrites directement dans les fichiers YAML. Elles sont stockées dans les secrets GitHub Actions et injectées au moment de l'exécution des jobs.
+
+\section{Variables et secrets de déploiement}
+
+\small
+\begin{longtable}{|p{4.4cm}|p{9.4cm}|}
+\hline
+\textbf{Secret ou variable} & \textbf{Utilisation} \\
+\hline
+\endhead
+
+\codepath{SSH_HOST} & Adresse du serveur de production. \\
+\hline
+\codepath{SSH_USER} & Utilisateur SSH utilisé par les pipelines de déploiement. \\
+\hline
+\codepath{SSH_PORT} & Port SSH du serveur. Si absent, la valeur \codepath{22} est utilisée. \\
+\hline
+\codepath{SSH_PRIVATE_KEY} & Clé privée SSH utilisée par GitHub Actions pour se connecter au serveur. \\
+\hline
+\codepath{SSH_BE_PATH} & Chemin du projet backend Laravel sur le serveur de production. \\
+\hline
+\codepath{SSH_FE_PATH} & Chemin du dossier de déploiement du frontend React. \\
+\hline
+\codepath{DEPLOY_BRANCH} & Branche à déployer. Par défaut, la branche \codepath{master} est utilisée. \\
+\hline
+\codepath{PHP_BIN} & Chemin de l'exécutable PHP 8.2 utilisé sur le serveur. \\
+\hline
+\caption{Secrets et variables utilisés par les workflows de déploiement}
+\label{tab:deployment-secrets}
+\end{longtable}
+\normalsize
+
+\section{Configuration d'environnement du backend}
+
+Le fichier \codepath{.env} du backend Laravel reste un fichier classique d'environnement applicatif. Il contient notamment les paramètres de l'application, la configuration de la base de données, la configuration de session et les clés nécessaires au fonctionnement de Laravel. Ce fichier ne doit pas être versionné avec des valeurs réelles.
+
+\begin{lstlisting}[language={},caption={Structure indicative du fichier .env backend}]
+APP_NAME=SomaScan
+APP_ENV=production
+APP_KEY=base64:...
+APP_DEBUG=false
+APP_URL=https://example.com
+
+DB_CONNECTION=mysql
+DB_HOST=...
+DB_PORT=3306
+DB_DATABASE=...
+DB_USERNAME=...
+DB_PASSWORD=...
+
+SESSION_DRIVER=database
+CACHE_STORE=database
+QUEUE_CONNECTION=database
+
+SANCTUM_STATEFUL_DOMAINS=...
+\end{lstlisting}
+
+Les valeurs réelles liées à la base de données, au domaine de production et aux clés applicatives doivent rester dans l'environnement du serveur ou dans les interfaces sécurisées prévues à cet effet.
+
+\section{Workflow backend Laravel}
+
+Le workflow backend met à jour le code sur le serveur, installe les dépendances Composer en mode production, puis exécute les commandes Artisan nécessaires après déploiement.
+
+\begin{lstlisting}[language={},caption={Workflow GitHub Actions du backend Laravel}]
+name: backend-deploy
+
+on:
+  workflow_dispatch:
+    inputs:
+      deploy_branch:
+        description: "Branch to deploy"
+        type: string
+        required: false
+        default: "master"
+  push:
+    branches:
+      - "master"
+
+jobs:
+  deploy:
+    if: >-
+      github.event_name == 'workflow_dispatch' || github.event_name == 'push'
+    runs-on: ubuntu-latest
+    environment: production
+    env:
+      SSH_PORT: ${{ secrets.SSH_PORT || '22' }}
+      DEPLOY_BRANCH: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.deploy_branch || github.ref_name }}
+      PHP_BIN: /usr/php82/usr/bin/php
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Load SSH key
+        uses: webfactory/ssh-agent@v0.9.0
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+
+      - name: Add SSH known hosts
+        run: |
+          mkdir -p ~/.ssh
+          ssh-keyscan -p "${SSH_PORT}" -H "${{ secrets.SSH_HOST }}" >> ~/.ssh/known_hosts
+
+      - name: Update code on host
+        run: |
+          ssh -p "${SSH_PORT}" ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} \
+            "cd ${{ secrets.SSH_BE_PATH }} && git fetch --all --prune && git checkout ${DEPLOY_BRANCH} && git pull --ff-only origin ${DEPLOY_BRANCH}"
+
+      - name: Install dependencies on host
+        run: |
+          ssh -p "${SSH_PORT}" ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} \
+            "cd ${{ secrets.SSH_BE_PATH }} && ${PHP_BIN} /usr/local/bin/composer install --no-interaction --no-dev --prefer-dist --optimize-autoloader"
+
+      - name: Post-deploy artisan
+        run: |
+          ssh -p "${SSH_PORT}" ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} \
+            "cd ${{ secrets.SSH_BE_PATH }} && ${PHP_BIN} artisan optimize:clear && ${PHP_BIN} artisan migrate --force && ${PHP_BIN} artisan config:cache && ${PHP_BIN} artisan route:cache && ${PHP_BIN} artisan queue:restart"
+\end{lstlisting}
+
+Les commandes post-déploiement ont les objectifs suivants : vider les caches existants, exécuter les migrations en mode production, reconstruire les caches de configuration et de routes, puis redémarrer les workers de queue si nécessaire.
+
+\section{Workflow frontend React}
+
+Le workflow frontend installe les dépendances Node.js, génère le dossier \codepath{dist/}, puis synchronise ce dossier vers l'emplacement de production avec \codepath{rsync}.
+
+\begin{lstlisting}[language={},caption={Workflow GitHub Actions du frontend React}]
+name: frontend-deploy
+
+on:
+  workflow_dispatch:
+    inputs:
+      deploy_branch:
+        description: "Branch to deploy"
+        type: string
+        required: false
+        default: "master"
+  push:
+    branches:
+      - "master"
+
+jobs:
+  deploy:
+    if: >-
+      github.event_name == 'workflow_dispatch' || github.event_name == 'push'
+    runs-on: ubuntu-latest
+    environment: production
+    env:
+      SSH_PORT: ${{ secrets.SSH_PORT || '22' }}
+      DEPLOY_BRANCH: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.deploy_branch || github.ref_name }}
+      FRONTEND_DEPLOY_PATH: ${{ secrets.SSH_FE_PATH }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ env.DEPLOY_BRANCH }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build frontend
+        run: npm run build
+
+      - name: Load SSH key
+        uses: webfactory/ssh-agent@v0.9.0
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+
+      - name: Add SSH known hosts
+        run: |
+          mkdir -p ~/.ssh
+          ssh-keyscan -p "${SSH_PORT}" -H "${{ secrets.SSH_HOST }}" >> ~/.ssh/known_hosts
+
+      - name: Change to deployment directory
+        run: |
+          ssh -p "${SSH_PORT}" ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} \
+            "cd '${FRONTEND_DEPLOY_PATH}' && pwd"
+
+      - name: Sync dist to host
+        run: |
+          rsync -az --delete -e "ssh -p ${SSH_PORT}" dist/ \
+            ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:"${FRONTEND_DEPLOY_PATH}/"
+\end{lstlisting}
+
+Le paramètre \codepath{--delete} de \codepath{rsync} permet de supprimer du serveur les anciens fichiers qui n'existent plus dans le nouveau build. Cela évite de conserver des ressources obsolètes après plusieurs déploiements successifs.
+
+\section{Points de vigilance}
+
+\begin{itemize}
+    \item La branche \codepath{master} doit rester protégée, car tout merge validé peut déclencher une mise en production.
+    \item Les secrets GitHub doivent être limités aux personnes autorisées et ne doivent jamais être écrits dans le code source.
+    \item Le fichier \codepath{.env} de production doit rester sur le serveur et ne doit pas être exposé dans le dépôt.
+    \item Les migrations Laravel sont exécutées automatiquement avec \texttt{php artisan migrate --force}; une sauvegarde de base de données est donc recommandée avant les changements structurels importants.
+    \item La stratégie actuelle ne décrit pas encore une procédure complète de rollback base de données. Cette limite a été identifiée comme une perspective d'amélioration.
+\end{itemize}

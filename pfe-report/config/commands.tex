@@ -1,0 +1,60 @@
+% Custom reusable commands
+\newcommand{\PFE}{Projet de Fin d'Etudes}
+\newcommand{\TODO}[1]{\textcolor{red}{[TODO: #1]}}
+\newcommand{\code}[1]{\texttt{#1}}
+\newcommand{\codepath}[1]{\begingroup\Urlmuskip=0mu plus 2mu\path{#1}\endgroup}
+\makeatletter
+\g@addto@macro\UrlBreaks{\do\/\do\.\do\_\do\-}
+\makeatother
+\newcommand{\chapteropeningtext}[2]{%
+\vspace{0.35cm}
+\noindent{\color{ChapterAccent}\rule{\textwidth}{0.8pt}}\\[0.45cm]
+\noindent{\Large\bfseries Introduction}\\[0.3cm]
+\noindent\colorbox{black!4}{%
+    \parbox{\dimexpr\textwidth-2\fboxsep\relax}{%
+        \setlength{\parindent}{0pt}%
+        \setstretch{1.25}#1%
+    }%
+}
+\vfill
+\noindent{\footnotesize\textbf{Mots-clés :} #2}
+\vspace{0.35cm}
+
+\noindent{\color{ChapterAccent}\rule{\textwidth}{0.5pt}}
+\clearpage
+}
+\newcommand{\diagramplaceholder}[3]{%
+\begin{figure}[H]
+    \centering
+    \fbox{%
+        \begin{minipage}{0.88\textwidth}
+            \centering
+            \vspace{0.8cm}
+            \textbf{#1}\\[0.25cm]
+            \small Emplacement reserve pour le diagramme final.\\
+            \small Fichier prevu : \codepath{#3}
+            \vspace{0.8cm}
+        \end{minipage}
+    }
+    \caption{#1}
+    \label{#2}
+\end{figure}
+}
+
+\newcommand{\artifactplaceholder}[3]{%
+\begin{figure}[H]
+    \centering
+    \fbox{%
+        \begin{minipage}{0.88\textwidth}
+            \centering
+            \vspace{0.8cm}
+            \textbf{#1}\\[0.25cm]
+            \small Emplacement reserve pour l'illustration finale.\\
+            \small Fichier prevu : \codepath{#3}
+            \vspace{0.8cm}
+        \end{minipage}
+    }
+    \caption{#1}
+    \label{#2}
+\end{figure}
+}

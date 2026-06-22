@@ -1,0 +1,44 @@
+%% F21 - Organisation des API REST principales par module
+flowchart LR
+    MOBILE["Application mobile Flutter<br/>Operateurs usine / port"]
+    WEB["Application web React<br/>Agent logistique"]
+
+    API["/api<br/>Routes REST Laravel"]
+    MW["Middleware<br/>auth:sanctum + roles + validation JSON"]
+
+    AUTH["Authentification<br/>POST /login<br/>GET /me<br/>POST /logout"]
+    OP["Operateur terrain<br/>POST /scan<br/>GET /operator/last-scans<br/>GET /trucks/{id}/basic"]
+    TRUCKS["Administration camions<br/>GET /trucks<br/>POST /trucks<br/>PUT /trucks/{id}<br/>DELETE /trucks/{id}<br/>QR code"]
+    USERS["Administration utilisateurs<br/>GET /users<br/>POST /users<br/>PUT /users/{id}<br/>activation / desactivation"]
+    TRIPS["Suivi des trajets<br/>GET /trips<br/>GET /trips/{id}<br/>annulation<br/>notes administratives"]
+    REPORTS["Dashboard et rapports<br/>indicateurs<br/>durees de trajet<br/>exports Excel / PDF"]
+    LOGS["Logs et configuration<br/>scan logs globaux<br/>configuration scan_flows<br/>START / ARRIVE / LEAVE / RETURN"]
+    RESPONSE["Format de reponse standard<br/>success | data | message | errors"]
+
+    MOBILE -->|"Bearer token + JSON"| API
+    WEB -->|"Bearer token + JSON"| API
+    API --> MW
+    MW -->|"public / authentifie"| AUTH
+    MW -->|"COMPANY_OPERATOR / PORT_OPERATOR"| OP
+    MW -->|"ADMIN"| TRUCKS
+    MW -->|"ADMIN"| USERS
+    MW -->|"ADMIN"| TRIPS
+    MW -->|"ADMIN"| REPORTS
+    MW -->|"ADMIN"| LOGS
+    MW -.->|"reponses normalisees"| RESPONSE
+
+    classDef client fill:#e8f4ff,stroke:#3778bf,color:#0f2742
+    classDef gateway fill:#f7f7f7,stroke:#666,color:#222
+    classDef security fill:#ffe9e6,stroke:#c24b3a,color:#3b100b
+    classDef public fill:#fff5d8,stroke:#b78500,color:#3d2b00
+    classDef operator fill:#eef7ed,stroke:#4f8a45,color:#173317
+    classDef admin fill:#f1e8ff,stroke:#7654a6,color:#25123d
+    classDef note fill:#ffffff,stroke:#b3b3b3,color:#222
+
+    class MOBILE,WEB client
+    class API gateway
+    class MW security
+    class AUTH public
+    class OP operator
+    class TRUCKS,USERS,TRIPS,REPORTS,LOGS admin
+    class RESPONSE note

@@ -1,0 +1,32 @@
+% Figure and table caption style
+\usepackage{caption}
+\captionsetup{font=small,labelfont=bf}
+\setlength{\emergencystretch}{2em}
+
+% Chapter heading spacing
+\usepackage{titlesec}
+\definecolor{ChapterAccent}{HTML}{7A1F1F}
+\definecolor{ChapterMuted}{HTML}{666666}
+\titleformat{name=\chapter}[display]
+  {\normalfont\bfseries}
+  {\filleft{\color{ChapterMuted}\Large\MakeUppercase{\chaptername}}\hspace{0.4em}{\color{ChapterAccent}\fontsize{52}{58}\selectfont\thechapter}}
+  {0.3cm}
+  {\titlerule[0.8pt]\vspace{0.45cm}\Huge}
+\titleformat{name=\chapter,numberless}[display]
+  {\normalfont\bfseries}
+  {}
+  {0pt}
+  {\titlerule[0.8pt]\vspace{0.45cm}\Huge}
+\titlespacing*{\chapter}{0pt}{-5pt}{24pt}
+
+% Listings style
+\lstdefinestyle{pfe}{
+  basicstyle=\ttfamily\small,
+  keywordstyle=\bfseries\color{blue!65!black},
+  commentstyle=\itshape\color{green!40!black},
+  stringstyle=\color{orange!70!black},
+  frame=single,
+  breaklines=true,
+  showstringspaces=false
+}
+\lstset{style=pfe}

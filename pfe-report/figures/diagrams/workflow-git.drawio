@@ -1,0 +1,92 @@
+<mxfile host="65bd71144e">
+    <diagram id="workflow-git" name="F41 - Workflow Git">
+        <mxGraphModel dx="1149" dy="919" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                <mxCell id="title" value="Workflow Git : développement, validation et production" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontSize=22;fontStyle=1;fontFamily=Times New Roman;" parent="1" vertex="1">
+                    <mxGeometry x="77.5" y="20" width="760" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="lane-dev" value="Branches de travail" style="swimlane;html=1;rounded=1;startSize=34;fillColor=#f5f5f5;strokeColor=#666666;fontSize=19;fontStyle=1;fontFamily=Times New Roman;" parent="1" vertex="1">
+                    <mxGeometry x="80" y="100" width="760" height="160" as="geometry"/>
+                </mxCell>
+                <mxCell id="bugfix" value="&lt;font style=&quot;font-size: 17px;&quot;&gt;&lt;b&gt;bugfix/*&lt;br&gt;&lt;/b&gt;&lt;/font&gt;&lt;font style=&quot;font-size: 15px;&quot;&gt;correction d&#39;anomalie&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=16;fontFamily=Times New Roman;" parent="lane-dev" vertex="1">
+                    <mxGeometry x="280" y="55" width="205" height="65" as="geometry"/>
+                </mxCell>
+                <mxCell id="task" value="&lt;font style=&quot;font-size: 19px;&quot;&gt;&lt;b&gt;task/*&lt;br&gt;&lt;/b&gt;&lt;/font&gt;&lt;font style=&quot;font-size: 15px;&quot;&gt;modification ciblée&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=16;fontFamily=Times New Roman;" parent="lane-dev" vertex="1">
+                    <mxGeometry x="530" y="55" width="205" height="65" as="geometry"/>
+                </mxCell>
+                <mxCell id="lane-review" value="Validation GitHub" style="swimlane;html=1;rounded=1;startSize=34;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=19;fontStyle=1;fontFamily=Times New Roman;" parent="1" vertex="1">
+                    <mxGeometry x="80" y="400" width="760" height="180" as="geometry"/>
+                </mxCell>
+                <mxCell id="review" value="Review validation&lt;div&gt;&amp;nbsp;technique&lt;/div&gt;" style="rhombus;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=17;fontFamily=Times New Roman;" parent="lane-review" vertex="1">
+                    <mxGeometry x="295" y="55" width="170" height="105" as="geometry"/>
+                </mxCell>
+                <mxCell id="pr" value="Pull Request&lt;br&gt;vers master" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=17;fontFamily=Times New Roman;" parent="lane-review" vertex="1">
+                    <mxGeometry x="40" y="75" width="205" height="65" as="geometry"/>
+                </mxCell>
+                <mxCell id="e-pr-review" style="endArrow=block;html=1;rounded=0;strokeWidth=1.7;strokeColor=#666666;fontFamily=Times New Roman;" parent="lane-review" source="pr" target="review" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="approve" value="Approbation&lt;br&gt;et merge" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=17;fontFamily=Times New Roman;" parent="lane-review" vertex="1">
+                    <mxGeometry x="540" y="75" width="205" height="65" as="geometry"/>
+                </mxCell>
+                <mxCell id="e-review-approve" value="validée" style="endArrow=block;html=1;rounded=0;strokeWidth=1.7;strokeColor=#82b366;fontSize=16;fontFamily=Times New Roman;" parent="lane-review" source="review" target="approve" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="lane-prod" value="Production" style="swimlane;html=1;rounded=1;startSize=34;fillColor=#eaf4ff;strokeColor=#6c8ebf;fontSize=19;fontStyle=1;fontFamily=Times New Roman;" parent="1" vertex="1">
+                    <mxGeometry x="80" y="640" width="760" height="180" as="geometry"/>
+                </mxCell>
+                <mxCell id="actions" value="&lt;font style=&quot;font-size: 17px;&quot;&gt;&lt;b style=&quot;&quot;&gt;GitHub Actions&lt;br&gt;&lt;/b&gt;&lt;/font&gt;&lt;font style=&quot;font-size: 13px;&quot;&gt;déploiement automatique&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=16;fontFamily=Times New Roman;" parent="lane-prod" vertex="1">
+                    <mxGeometry x="310" y="70" width="170" height="70" as="geometry"/>
+                </mxCell>
+                <mxCell id="master" value="master&lt;br&gt;&lt;font&gt;branche protégée&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=17;fontStyle=1;fontFamily=Times New Roman;" parent="lane-prod" vertex="1">
+                    <mxGeometry x="30" y="70" width="150" height="70" as="geometry"/>
+                </mxCell>
+                <mxCell id="e-master-actions" value="push master" style="endArrow=block;html=1;rounded=0;strokeWidth=1.8;strokeColor=#6c8ebf;fontSize=16;fontFamily=Times New Roman;" parent="lane-prod" source="master" target="actions" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="prod" value="&lt;b&gt;&lt;font style=&quot;font-size: 16px;&quot;&gt;Serveur de production&lt;br&gt;&lt;/font&gt;&lt;/b&gt;&lt;font style=&quot;font-size: 14px;&quot;&gt;ValaBlue : backend + frontend&lt;/font&gt;" style="shape=cylinder3d;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=15;fontFamily=Times New Roman;" parent="lane-prod" vertex="1">
+                    <mxGeometry x="540" y="65" width="185" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="e-actions-prod" style="endArrow=block;html=1;rounded=0;strokeWidth=1.8;strokeColor=#6c8ebf;fontFamily=Times New Roman;" parent="lane-prod" source="actions" target="prod" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="feature" value="&lt;font style=&quot;font-size: 19px;&quot;&gt;&lt;b style=&quot;&quot;&gt;feature/*&lt;br&gt;&lt;/b&gt;&lt;/font&gt;&lt;font style=&quot;font-size: 15px;&quot;&gt;nouvelle fonctionnalité&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=16;fontFamily=Times New Roman;" parent="1" vertex="1">
+                    <mxGeometry x="105" y="155" width="205" height="65" as="geometry"/>
+                </mxCell>
+                <mxCell id="guard" value="&lt;b&gt;&lt;font style=&quot;font-size: 17px;&quot;&gt;Protection master&lt;br&gt;&lt;/font&gt;&lt;/b&gt;&lt;font style=&quot;font-size: 15px;&quot;&gt;pas de push direct&lt;br&gt;merge seulement après validation&lt;/font&gt;" style="shape=note;whiteSpace=wrap;html=1;backgroundOutline=1;darkOpacity=0.05;fillColor=#f8cecc;strokeColor=#b85450;fontSize=14;fontFamily=Times New Roman;" parent="1" vertex="1">
+                    <mxGeometry x="610" y="290" width="230" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="e-feature-local" style="endArrow=block;html=1;rounded=0;strokeWidth=1.5;strokeColor=#82b366;entryX=0;entryY=0;entryDx=0;entryDy=0;fontFamily=Times New Roman;" parent="1" source="feature" target="local" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e-local-pr" style="endArrow=block;html=1;rounded=0;strokeWidth=1.7;strokeColor=#666666;exitX=0.25;exitY=1;exitDx=0;exitDy=0;fontFamily=Times New Roman;" parent="1" source="local" target="pr" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e-review-back" value="changements demandés" style="endArrow=block;html=1;rounded=0;strokeWidth=1.7;strokeColor=#b85450;fontSize=16;fontFamily=Times New Roman;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" parent="1" source="review" target="local" edge="1">
+                    <mxGeometry x="0.4444" y="-10" relative="1" as="geometry">
+                        <mxPoint as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="e-approve-master" style="endArrow=block;html=1;rounded=0;strokeWidth=1.8;strokeColor=#9673a6;edgeStyle=orthogonalEdgeStyle;fontFamily=Times New Roman;" parent="1" source="approve" target="master" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="723" y="610"/>
+                            <mxPoint x="185" y="610"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="local" value="Développement local&lt;br&gt;tests et commits" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=17;fontFamily=Times New Roman;" parent="1" vertex="1">
+                    <mxGeometry x="357.5" y="290" width="205" height="65" as="geometry"/>
+                </mxCell>
+                <mxCell id="e-bugfix-local" style="endArrow=block;html=1;rounded=0;strokeWidth=1.5;strokeColor=#82b366;fontFamily=Times New Roman;" parent="1" source="bugfix" target="local" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e-task-local" style="endArrow=block;html=1;rounded=0;strokeWidth=1.5;strokeColor=#82b366;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=1;entryY=0;entryDx=0;entryDy=0;fontFamily=Times New Roman;" parent="1" source="task" target="local" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+</mxfile>

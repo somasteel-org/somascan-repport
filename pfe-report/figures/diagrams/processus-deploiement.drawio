@@ -1,0 +1,96 @@
+<mxfile host="65bd71144e">
+    <diagram id="processus-deploiement" name="F39 - Processus de deploiement">
+        <mxGraphModel dx="1149" dy="919" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                <mxCell id="dev-zone" value="Développement et validation" style="swimlane;html=1;rounded=1;startSize=34;fillColor=#f5f5f5;strokeColor=#666666;fontSize=18;fontStyle=1;fontFamily=Times New Roman;" parent="1" vertex="1">
+                    <mxGeometry x="32.5" y="90" width="960" height="210" as="geometry"/>
+                </mxCell>
+                <mxCell id="s5" value="Merge vers&lt;br&gt;&lt;b&gt;master protégée&lt;/b&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=16;fontFamily=Times New Roman;" parent="dev-zone" vertex="1">
+                    <mxGeometry x="800" y="55" width="145" height="70" as="geometry"/>
+                </mxCell>
+                <mxCell id="prod-zone" value="Déploiement en production" style="swimlane;html=1;rounded=1;startSize=34;fillColor=#eaf4ff;strokeColor=#6c8ebf;fontSize=18;fontStyle=1;fontFamily=Times New Roman;" parent="1" vertex="1">
+                    <mxGeometry x="40" y="340" width="960" height="340" as="geometry"/>
+                </mxCell>
+                <mxCell id="s6" value="Déclenchement GitHub Actions&lt;br&gt;&lt;font style=&quot;font-size: 14px;&quot;&gt;push master ou workflow_dispatch&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=16;fontFamily=Times New Roman;" parent="prod-zone" vertex="1">
+                    <mxGeometry x="325" y="60" width="260" height="75" as="geometry"/>
+                </mxCell>
+                <mxCell id="be" value="Pipeline backend&lt;br&gt;&lt;font&gt;&lt;font style=&quot;font-size: 14px;&quot;&gt;git pull, composer install,&lt;br&gt;&lt;/font&gt;&lt;font style=&quot;font-size: 14px;&quot;&gt;migrate, cache Laravel&lt;/font&gt;&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=16;fontFamily=Times New Roman;" parent="prod-zone" vertex="1">
+                    <mxGeometry x="70" y="150" width="210" height="90" as="geometry"/>
+                </mxCell>
+                <mxCell id="fe" value="Pipeline frontend&lt;br&gt;&lt;font&gt;&lt;font style=&quot;font-size: 14px;&quot;&gt;npm ci, npm run build,&lt;br&gt;&lt;/font&gt;&lt;font style=&quot;font-size: 14px;&quot;&gt;rsync dist vers serveur&lt;/font&gt;&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=16;fontFamily=Times New Roman;" parent="prod-zone" vertex="1">
+                    <mxGeometry x="630" y="150" width="210" height="90" as="geometry"/>
+                </mxCell>
+                <mxCell id="prod" value="Production ValaBlue&lt;br&gt;&lt;font style=&quot;font-size: 14px;&quot;&gt;cPanel + SSH + SSL&lt;br&gt;Laravel API + React web + base de données&lt;/font&gt;" style="shape=cylinder3d;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=16;fontFamily=Times New Roman;" parent="prod-zone" vertex="1">
+                    <mxGeometry x="345" y="230" width="220" height="95" as="geometry"/>
+                </mxCell>
+                <mxCell id="e7" style="endArrow=block;html=1;rounded=0;strokeWidth=1.7;strokeColor=#6c8ebf;entryX=1;entryY=0.25;entryDx=0;entryDy=0;fontFamily=Times New Roman;" parent="prod-zone" source="s6" target="be" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e8" style="endArrow=block;html=1;rounded=0;strokeWidth=1.7;strokeColor=#6c8ebf;entryX=0;entryY=0.25;entryDx=0;entryDy=0;fontFamily=Times New Roman;" parent="prod-zone" source="s6" target="fe" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e9" style="endArrow=block;html=1;rounded=0;strokeWidth=1.7;strokeColor=#6c8ebf;entryX=0;entryY=0;entryDx=0;entryDy=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;fontFamily=Times New Roman;" parent="prod-zone" source="be" target="prod" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e10" style="endArrow=block;html=1;rounded=0;strokeWidth=1.7;strokeColor=#6c8ebf;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0;entryDx=0;entryDy=0;fontFamily=Times New Roman;" parent="prod-zone" source="fe" target="prod" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="s1" value="Créer une branche dédiée&lt;br&gt;&lt;font style=&quot;font-size: 13px;&quot;&gt;feature / bugfix / task&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=16;fontFamily=Times New Roman;" parent="1" vertex="1">
+                    <mxGeometry x="70" y="145" width="145" height="70" as="geometry"/>
+                </mxCell>
+                <mxCell id="s2" value="Implémenter&lt;br&gt;et tester localement" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=16;fontFamily=Times New Roman;" parent="1" vertex="1">
+                    <mxGeometry x="255" y="145" width="145" height="70" as="geometry"/>
+                </mxCell>
+                <mxCell id="s3" value="Ouvrir une&lt;br&gt;Pull Request" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=16;fontFamily=Times New Roman;" parent="1" vertex="1">
+                    <mxGeometry x="440" y="145" width="145" height="70" as="geometry"/>
+                </mxCell>
+                <mxCell id="s4" value="Revue et validation" style="rhombus;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=16;fontFamily=Times New Roman;" parent="1" vertex="1">
+                    <mxGeometry x="625" y="130" width="145" height="100" as="geometry"/>
+                </mxCell>
+                <mxCell id="mobile" value="Appareils Android entreprise&lt;br&gt;&lt;font style=&quot;font-size: 14px;&quot;&gt;application Flutter installée manuellement&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=16;fontFamily=Times New Roman;" parent="1" vertex="1">
+                    <mxGeometry x="365" y="730" width="260" height="62" as="geometry"/>
+                </mxCell>
+                <mxCell id="note" value="Règle importante : aucun push direct vers master. Toute mise en production passe par une Pull Request validée." style="shape=note;whiteSpace=wrap;html=1;backgroundOutline=1;darkOpacity=0.05;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=16;fontFamily=Times New Roman;" parent="1" vertex="1">
+                    <mxGeometry x="700" y="712" width="300" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="e1" style="endArrow=block;html=1;rounded=0;strokeWidth=1.7;strokeColor=#666666;fontFamily=Times New Roman;" parent="1" source="s1" target="s2" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e2" style="endArrow=block;html=1;rounded=0;strokeWidth=1.7;strokeColor=#666666;fontFamily=Times New Roman;" parent="1" source="s2" target="s3" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e3" style="endArrow=block;html=1;rounded=0;strokeWidth=1.7;strokeColor=#666666;fontFamily=Times New Roman;" parent="1" source="s3" target="s4" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e4" value="approuvée" style="endArrow=block;html=1;rounded=0;strokeWidth=1.7;strokeColor=#666666;fontSize=15;fontFamily=Times New Roman;" parent="1" source="s4" target="s5" edge="1">
+                    <mxGeometry x="-0.36" y="-10" relative="1" as="geometry">
+                        <mxPoint as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="e5" value="corrections" style="endArrow=block;html=1;rounded=0;strokeWidth=1.7;strokeColor=#b85450;fontSize=17;fontFamily=Times New Roman;exitX=0.5;exitY=1;entryX=0.5;entryY=1;" parent="1" source="s4" target="s2" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="698" y="265"/>
+                            <mxPoint x="328" y="265"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="e6" style="endArrow=block;html=1;rounded=0;strokeWidth=1.8;strokeColor=#6c8ebf;fontFamily=Times New Roman;" parent="1" source="s5" target="s6" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="888" y="310"/>
+                            <mxPoint x="710" y="310"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="e11" value="consomme API HTTPS" style="endArrow=block;html=1;rounded=0;strokeWidth=1.6;strokeColor=#d6b656;fontSize=17;fontFamily=Times New Roman;" parent="1" source="mobile" target="prod" edge="1">
+                    <mxGeometry x="-0.0769" relative="1" as="geometry">
+                        <mxPoint as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+</mxfile>

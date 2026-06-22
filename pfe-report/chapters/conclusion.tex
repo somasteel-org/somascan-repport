@@ -1,0 +1,57 @@
+\chapter*{Conclusion Générale et Perspectives}
+\phantomsection
+\addcontentsline{toc}{chapter}{Conclusion Générale et Perspectives}
+
+\chapteropeningtext{Ce projet de fin d'études a porté sur la conception, le développement et le déploiement d'une solution digitale destinée au suivi des camions loués transportant la ferraille entre le port et l'usine de SOMASTEEL. La solution proposée, nommée \textbf{SomaScan}, répond à une contrainte métier précise : assurer la traçabilité des trajets sans installer de dispositif GPS sur des véhicules externes à l'entreprise.\par\medskip À travers ce travail, une alternative basée sur l'identification par QR code a été mise en place afin de centraliser les informations, fiabiliser le suivi opérationnel et améliorer la visibilité du service logistique sur l'état des expéditions.}{Bilan -- Apports -- Limites -- Perspectives -- Digitalisation logistique}
+
+\section*{Bilan du projet}
+\phantomsection
+\addcontentsline{toc}{section}{Bilan du projet}
+
+Le projet a permis de transformer un processus de suivi principalement basé sur les appels téléphoniques en un système numérique structuré. Chaque camion est identifié par un code QR associé à son numéro d'immatriculation, et les opérateurs terrain peuvent enregistrer les étapes importantes du trajet à l'aide d'une application mobile. Ces scans permettent de mettre à jour les statuts des trajets et de conserver un historique exploitable.
+
+La solution développée repose sur trois parties complémentaires. Le backend Laravel centralise la logique métier, l'authentification, la gestion des rôles, les données des camions, les trajets et les logs de scan. L'application mobile Flutter permet aux opérateurs de réaliser les scans sur le terrain. L'application web React fournit à l'agent logistique les fonctionnalités d'administration, de suivi, de génération de QR codes, de consultation des trajets et de préparation des rapports.
+
+Sur le plan technique, l'architecture retenue permet de séparer clairement les responsabilités entre le backend, le mobile et le web. Cette organisation facilite l'évolution de la solution et permet de faire évoluer chaque partie indépendamment selon les besoins futurs.
+
+\section*{Apports de la solution}
+\phantomsection
+\addcontentsline{toc}{section}{Apports de la solution}
+
+La solution SomaScan apporte plusieurs améliorations par rapport au fonctionnement initial. Elle permet d'identifier les camions de manière unique, de centraliser les événements liés aux trajets, de réduire la dépendance aux échanges téléphoniques et de fournir une vue plus claire sur l'état des expéditions.
+
+Pour les opérateurs terrain, l'utilisation de l'application mobile simplifie l'enregistrement des passages. Pour l'agent logistique, l'application web facilite la gestion des camions, la consultation des trajets et l'exploitation des données. Pour l'entreprise, la solution constitue une première étape vers une meilleure digitalisation du processus logistique lié au transport de la ferraille.
+
+Le déploiement réalisé sur l'infrastructure ValaBlue et l'utilisation de pipelines GitHub Actions permettent également de rendre la mise en production plus structurée. La protection de la branche \texttt{master}, l'utilisation de Pull Requests et l'automatisation du déploiement backend et frontend contribuent à réduire les erreurs manuelles lors des livraisons.
+
+\section*{Limites actuelles}
+\phantomsection
+\addcontentsline{toc}{section}{Limites actuelles}
+
+Malgré les résultats obtenus, certaines limites restent présentes. Le système ne fournit pas une localisation continue des camions, car il ne repose pas sur un suivi GPS. Il enregistre plutôt des événements métier à des points de contrôle précis. Cette approche répond à la contrainte du projet, mais elle ne permet pas de connaître la position exacte du camion entre deux scans.
+
+L'application dépend également de la disponibilité du réseau au moment du scan, puisque le fonctionnement retenu repose sur des requêtes en ligne vers le backend. Une autre limite concerne l'exploitation opérationnelle : aucune stratégie de sauvegarde automatisée de la base de données n'est encore mise en place. De même, aucun dispositif dédié de supervision applicative n'a été déployé à ce stade.
+
+Ces limites ne remettent pas en cause l'intérêt de la solution, mais elles constituent des points d'amélioration importants pour une exploitation plus robuste à long terme.
+
+\section*{Perspectives d'évolution}
+\phantomsection
+\addcontentsline{toc}{section}{Perspectives d'évolution}
+
+Plusieurs perspectives peuvent être envisagées pour améliorer SomaScan. La première concerne la mise en place d'une stratégie de sauvegarde régulière de la base de données afin de protéger les informations relatives aux camions, aux trajets et aux logs de scan. Cette amélioration est prioritaire pour sécuriser l'exploitation de la solution.
+
+Une deuxième perspective consiste à ajouter une supervision applicative plus complète, permettant de suivre les erreurs API, les échecs de scans, les problèmes d'authentification et l'état général du système. Cette évolution faciliterait la maintenance et permettrait de détecter plus rapidement les anomalies.
+
+Il serait également possible d'enrichir le module de reporting avec des indicateurs plus avancés, des filtres supplémentaires, des tableaux de bord analytiques et des exports mieux adaptés aux besoins de la Direction Générale. À terme, si les contraintes réglementaires et organisationnelles le permettent, l'intégration d'autres sources de données logistiques pourrait renforcer davantage la visibilité sur les opérations de transport.
+
+Enfin, l'application mobile pourrait évoluer vers une meilleure gestion des cas de faible connectivité, par exemple avec une file d'attente locale des scans à synchroniser lorsque la connexion redevient disponible. Cette évolution nécessiterait toutefois des règles strictes pour éviter les incohérences de statut et préserver la fiabilité des données.
+
+\section*{Conclusion}
+\phantomsection
+\addcontentsline{toc}{section}{Conclusion}
+
+En conclusion, SomaScan constitue une réponse adaptée au besoin exprimé par SOMASTEEL pour le suivi des camions loués sans recours au GPS. Le projet a permis de couvrir l'ensemble du cycle de réalisation, depuis l'analyse du besoin jusqu'à la conception, l'implémentation, les tests, le déploiement et la structuration d'un workflow DevOps.
+
+Cette expérience a permis de mettre en pratique des compétences techniques et méthodologiques variées, notamment l'analyse fonctionnelle, la conception d'architecture, le développement backend, mobile et web, l'intégration d'API REST, la gestion des rôles, ainsi que l'automatisation du déploiement. Elle a également montré l'importance de concevoir une solution alignée avec les contraintes réelles du terrain et les besoins opérationnels de l'entreprise.
+
+Le projet représente ainsi une base solide pour la digitalisation du suivi logistique des camions loués, tout en ouvrant la voie à des améliorations futures liées à la sauvegarde, à la supervision, à l'analyse avancée et à la résilience de l'application mobile.

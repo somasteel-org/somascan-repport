@@ -1,0 +1,298 @@
+\chapter{Documentation API détaillée}
+
+Cette annexe présente une synthèse technique des principales API exposées par le backend Laravel de \textbf{SomaScan}. Toutes les routes applicatives sont préfixées par \codepath{/api} et utilisent le format JSON. Les applications mobile Flutter et web React consomment ces endpoints afin d'assurer l'authentification, la gestion des camions, le suivi des trajets, la consultation des logs et l'accès aux indicateurs opérationnels.
+
+\section{Principes généraux}
+
+Les requêtes vers l'API utilisent généralement les en-têtes suivants :
+
+\begin{lstlisting}[language={},caption={En-têtes HTTP utilisés par les clients API}]
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer <token>
+\end{lstlisting}
+
+Les réponses applicatives suivent une structure normalisée. Cette convention permet aux applications clientes de traiter les succès, les erreurs fonctionnelles et les erreurs de validation de manière cohérente.
+
+\begin{lstlisting}[language={},caption={Structure générale d'une réponse API}]
+{
+  "success": true,
+  "data": {},
+  "message": "Optional message",
+  "errors": {}
+}
+\end{lstlisting}
+
+L'authentification repose sur des jetons Laravel Sanctum. Les endpoints publics sont accessibles sans jeton, tandis que les endpoints protégés exigent un jeton valide dans l'en-tête \codepath{Authorization}.
+
+\section{Authentification}
+
+\small
+\begin{longtable}{|p{2.3cm}|p{4.2cm}|p{2.8cm}|p{5.1cm}|}
+\hline
+\textbf{Méthode} & \textbf{Endpoint} & \textbf{Accès} & \textbf{Rôle} \\
+\hline
+\endhead
+
+POST & \codepath{/api/login} & Public & Authentifier un utilisateur et générer un jeton Sanctum. \\
+\hline
+POST & \codepath{/api/logout} & Authentifié & Révoquer le jeton courant de l'utilisateur connecté. \\
+\hline
+GET & \codepath{/api/me} & Authentifié & Retourner le profil de l'utilisateur connecté. \\
+\hline
+\caption{Endpoints d'authentification}
+\label{tab:api-authentication}
+\end{longtable}
+\normalsize
+
+\begin{lstlisting}[language={},caption={Exemple de requête de connexion}]
+{
+  "email": "user@example.com",
+  "password": "secretpassword",
+  "device_name": "android-tablet-1"
+}
+\end{lstlisting}
+
+\begin{lstlisting}[language={},caption={Exemple de réponse de connexion}]
+{
+  "token": "1|abc...",
+  "user": {
+    "id": 1,
+    "name": "Admin",
+    "role": "ADMIN",
+    "location": null
+  },
+  "expires_at": null
+}
+\end{lstlisting}
+
+\section{Endpoints des opérateurs terrain}
+
+Ces endpoints sont destinés aux opérateurs affectés à l'usine ou au port. Le endpoint central est \codepath{/api/scan}, car il déclenche l'évolution du cycle de vie d'un trajet selon l'état courant du camion et la position de l'opérateur.
+
+\small
+\begin{longtable}{|p{2.3cm}|p{4.4cm}|p{3.3cm}|p{4.4cm}|}
+\hline
+\textbf{Méthode} & \textbf{Endpoint} & \textbf{Rôles} & \textbf{Description} \\
+\hline
+\endhead
+
+POST & \codepath{/api/scan} & \codepath{COMPANY_OPERATOR}, \codepath{PORT_OPERATOR} & Soumettre un scan QR et mettre à jour automatiquement le statut du trajet. \\
+\hline
+GET & \codepath{/api/operator/last-scans} & \codepath{COMPANY_OPERATOR}, \codepath{PORT_OPERATOR} & Consulter les derniers scans effectués par l'opérateur connecté. \\
+\hline
+GET & \codepath{/api/trucks/{id}/basic} & Tous les rôles authentifiés & Récupérer les informations légères d'un camion après un scan. \\
+\hline
+\caption{Endpoints utilisés par les opérateurs terrain}
+\label{tab:api-operator-endpoints}
+\end{longtable}
+\normalsize
+
+\begin{lstlisting}[language={},caption={Exemple de requête de scan QR}]
+{
+  "qr_code": "SOMASTEEL-TRUCK-24452-A-54",
+  "device_time": "2026-06-22T10:00:00Z",
+  "device_id": "device-uuid-123"
+}
+\end{lstlisting}
+
+\begin{lstlisting}[language={},caption={Exemple de réponse après scan réussi}]
+{
+  "status": "SUCCESS",
+  "message": "Scan successful",
+  "current_step": "STARTED",
+  "next_expected_step": "ARRIVED_PORT",
+  "is_locked": true,
+  "trip_summary": {
+    "trip_id": 42,
+    "truck_id": 5,
+    "status": "STARTED",
+    "truck": {
+      "id": 5,
+      "registration_number": "24452 A 54",
+      "driver_name": "Nom chauffeur"
+    },
+    "action": "START",
+    "timestamps": {
+      "started_at": "2026-06-22T10:00:00Z",
+      "arrived_port_at": null,
+      "left_port_at": null,
+      "completed_at": null
+    }
+  }
+}
+\end{lstlisting}
+
+Les principales erreurs retournées par le scan sont les suivantes : camion introuvable, camion inactif, rôle ou localisation incompatible avec l'action demandée, trajet déjà terminé ou flux de scan non configuré.
+
+\section{Gestion des camions}
+
+\small
+\begin{longtable}{|p{2.3cm}|p{4.8cm}|p{2.5cm}|p{4.8cm}|}
+\hline
+\textbf{Méthode} & \textbf{Endpoint} & \textbf{Rôle} & \textbf{Description} \\
+\hline
+\endhead
+
+GET & \codepath{/api/trucks} & ADMIN & Lister les camions avec pagination et filtres. \\
+\hline
+POST & \codepath{/api/trucks} & ADMIN & Créer un camion et générer son QR code si nécessaire. \\
+\hline
+GET & \codepath{/api/trucks/{id}} & ADMIN & Consulter les détails d'un camion. \\
+\hline
+PUT & \codepath{/api/trucks/{id}} & ADMIN & Modifier les informations d'un camion. \\
+\hline
+DELETE & \codepath{/api/trucks/{id}} & ADMIN & Supprimer un camion et les données associées. \\
+\hline
+POST & \codepath{/api/trucks/{id}/generate-qr} & ADMIN & Régénérer le code QR à partir de l'immatriculation. \\
+\hline
+PATCH & \codepath{/api/trucks/{id}/activate} & ADMIN & Activer un camion. \\
+\hline
+PATCH & \codepath{/api/trucks/{id}/deactivate} & ADMIN & Désactiver un camion. \\
+\hline
+POST & \codepath{/api/trucks/bulk-activate} & ADMIN & Activer plusieurs camions en une seule opération. \\
+\hline
+POST & \codepath{/api/trucks/bulk-deactivate} & ADMIN & Désactiver plusieurs camions en une seule opération. \\
+\hline
+GET & \codepath{/api/trucks/{id}/trips} & ADMIN & Consulter les trajets associés à un camion. \\
+\hline
+GET & \codepath{/api/trucks/search} & ADMIN & Rechercher des camions par immatriculation ou chauffeur. \\
+\hline
+GET & \codepath{/api/trucks/stats} & ADMIN & Obtenir les statistiques globales du parc. \\
+\hline
+\caption{Endpoints de gestion des camions}
+\label{tab:api-trucks}
+\end{longtable}
+\normalsize
+
+\section{Gestion des trajets}
+
+\small
+\begin{longtable}{|p{2.3cm}|p{4.8cm}|p{2.5cm}|p{4.8cm}|}
+\hline
+\textbf{Méthode} & \textbf{Endpoint} & \textbf{Rôle} & \textbf{Description} \\
+\hline
+\endhead
+
+GET & \codepath{/api/trips} & ADMIN & Lister les trajets avec pagination et filtres. \\
+\hline
+GET & \codepath{/api/trips/active} & ADMIN & Lister les trajets actifs. \\
+\hline
+GET & \codepath{/api/trips/history} & ADMIN & Lister l'historique des trajets terminés. \\
+\hline
+GET & \codepath{/api/trips/{id}} & ADMIN & Consulter les détails d'un trajet. \\
+\hline
+GET & \codepath{/api/trips/{id}/logs} & ADMIN & Consulter les logs de scan d'un trajet. \\
+\hline
+GET & \codepath{/api/trips/{id}/timeline} & ADMIN & Obtenir la chronologie des événements d'un trajet. \\
+\hline
+PATCH & \codepath{/api/trips/{id}/cancel} & ADMIN & Annuler un trajet actif avec une note optionnelle. \\
+\hline
+PATCH & \codepath{/api/trips/{id}/notes} & ADMIN & Modifier les notes associées à un trajet. \\
+\hline
+DELETE & \codepath{/api/trips/{id}} & ADMIN & Supprimer définitivement un trajet. \\
+\hline
+GET & \codepath{/api/trips/search} & ADMIN & Rechercher des trajets avec filtres. \\
+\hline
+GET & \codepath{/api/trips/stats} & ADMIN & Obtenir les statistiques des trajets. \\
+\hline
+GET & \codepath{/api/trips/calendar} & ADMIN & Obtenir une synthèse journalière pour la vue calendrier. \\
+\hline
+GET & \codepath{/api/trips/by-day} & ADMIN & Obtenir les trajets d'une journée donnée. \\
+\hline
+\caption{Endpoints de gestion des trajets}
+\label{tab:api-trips}
+\end{longtable}
+\normalsize
+
+\begin{lstlisting}[language={},caption={Exemple de réponse de la vue calendrier}]
+{
+  "data": [
+    {
+      "day": "2026-06-22",
+      "start_at": "2026-06-22T07:00:00+01:00",
+      "end_at": "2026-06-23T06:59:59+01:00",
+      "total": 15,
+      "active": 3,
+      "completed": 12,
+      "by_status": {
+        "STARTED": 1,
+        "ARRIVED_PORT": 1,
+        "LEFT_PORT": 1,
+        "COMPLETED": 12
+      },
+      "trips": []
+    }
+  ],
+  "meta": {
+    "from": "2026-06-22",
+    "to": "2026-06-30",
+    "day_start": "07:00",
+    "timezone": "Africa/Casablanca"
+  }
+}
+\end{lstlisting}
+
+\section{Gestion des utilisateurs}
+
+\small
+\begin{longtable}{|p{2.3cm}|p{4.8cm}|p{2.5cm}|p{4.8cm}|}
+\hline
+\textbf{Méthode} & \textbf{Endpoint} & \textbf{Rôle} & \textbf{Description} \\
+\hline
+\endhead
+
+GET & \codepath{/api/users} & ADMIN & Lister les utilisateurs avec filtres par rôle ou localisation. \\
+\hline
+POST & \codepath{/api/users} & ADMIN & Créer un utilisateur. \\
+\hline
+GET & \codepath{/api/users/{id}} & ADMIN & Consulter les détails d'un utilisateur. \\
+\hline
+PUT & \codepath{/api/users/{id}} & ADMIN & Modifier les informations d'un utilisateur. \\
+\hline
+PATCH & \codepath{/api/users/{id}/reset-password} & ADMIN & Réinitialiser le mot de passe d'un utilisateur. \\
+\hline
+GET & \codepath{/api/users/{id}/activity} & ADMIN & Consulter l'activité d'un utilisateur. \\
+\hline
+GET & \codepath{/api/users/search} & ADMIN & Rechercher un utilisateur par nom, email ou rôle. \\
+\hline
+GET & \codepath{/api/users/stats} & ADMIN & Obtenir les statistiques des utilisateurs. \\
+\hline
+\caption{Endpoints de gestion des utilisateurs}
+\label{tab:api-users}
+\end{longtable}
+\normalsize
+
+La route \codepath{DELETE /api/users/{id}} est enregistrée dans la couche de routage, mais la méthode de suppression correspondante n'est pas encore implémentée dans le contrôleur. Elle ne doit donc pas être considérée comme une fonctionnalité opérationnelle dans l'état actuel.
+
+\section{Logs de scan, rapports et configuration}
+
+\small
+\begin{longtable}{|p{2.3cm}|p{5cm}|p{2.5cm}|p{4.6cm}|}
+\hline
+\textbf{Méthode} & \textbf{Endpoint} & \textbf{Rôle} & \textbf{Description} \\
+\hline
+\endhead
+
+GET & \codepath{/api/scan-logs} & ADMIN & Lister et filtrer l'ensemble des scans effectués. \\
+\hline
+GET & \codepath{/api/reports/summary} & ADMIN & Obtenir une synthèse analytique des trajets. \\
+\hline
+GET & \codepath{/api/reports/truck/{id}} & ADMIN & Obtenir un rapport analytique pour un camion donné. \\
+\hline
+GET & \codepath{/api/reports/export} & ADMIN & Télécharger un export Excel des trajets. \\
+\hline
+GET & \codepath{/api/scan-flow} & ADMIN & Consulter le flux de statuts actif. \\
+\hline
+PUT & \codepath{/api/scan-flow} & ADMIN & Modifier la séquence logique du flux de scan. \\
+\hline
+\caption{Endpoints d'administration complémentaires}
+\label{tab:api-admin-extra}
+\end{longtable}
+\normalsize
+
+Les endpoints \codepath{/api/reports/durations} et \codepath{/api/reports/delays} sont présents dans la couche de routage mais leurs méthodes dédiées ne sont pas encore implémentées. Ils ne sont donc pas retenus comme fonctionnalités finalisées.
+
+\section{Endpoint de configuration initiale}
+
+Le endpoint \codepath{GET /api/setup} est public et permet d'exécuter les migrations et seeders lors de l'initialisation. Il doit être considéré comme un endpoint technique de bootstrap, à limiter fortement ou désactiver en production afin d'éviter toute action non contrôlée sur la base de données.
