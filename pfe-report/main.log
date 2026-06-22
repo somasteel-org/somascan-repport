@@ -836,13 +836,13 @@ File: figures/screenshots/web-ajout-camion-qr.png Graphic file (type bmp)
 File: figures/screenshots/web-calendrier-trajets.png Graphic file (type bmp)
 <figures/screenshots/web-calendrier-trajets.png>
  [47] [48]
-LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <10.95> on input line 271.
+File: figures/screenshots/test-api-postman.png Graphic file (type bmp)
+<figures/screenshots/test-api-postman.png>
 File: figures/diagrams/scenario-test-scan.pdf Graphic file (type pdf)
 <use figures/diagrams/scenario-test-scan.pdf>
-
+ [49]
 Missing character: There is no œ ("153) in font ec-lmr12!
-[49]) (chapters/chapter5-deployment-and-devops [50]
+) (chapters/chapter5-deployment-and-devops [50]
 Chapitre 5.
 [51
 
@@ -866,6 +866,9 @@ File: figures/diagrams/pipeline-ci-cd.pdf Graphic file (type pdf)
 ] [62
 
 ]) [63] [64] (chapters/bibliography-webography
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <10.95> on input line 32.
+
 Underfull \hbox (badness 10000) in paragraph at lines 32--33
 []|[]$\T1/lmtt/m/n/10.95 https : / / laravel .
  []
@@ -1195,4 +1198,4 @@ LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 Package rerunfilecheck Info: File `main.out' has not changed.
 (rerunfilecheck)             Checksum: 099D5A434A77160C905A830A2371EAD2;18000.
  )
-Output written on main.xdv (90 pages, 355940 bytes).
+Output written on main.xdv (90 pages, 355708 bytes).

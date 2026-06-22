@@ -265,10 +265,15 @@ Les tests réalisés visent à vérifier le bon fonctionnement des fonctionnalit
 
 Les endpoints API peuvent être testés avec un outil de requêtes HTTP afin de vérifier les réponses du backend, les statuts retournés et les messages d'erreur. Ces tests permettent de valider séparément la logique backend avant de vérifier son intégration complète avec les interfaces mobile et web.
 
-\artifactplaceholder
-{Test API avec Postman ou outil équivalent}
-{fig:test-api-postman}
-{figures/screenshots/test-api-postman.png}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth,keepaspectratio]
+    {figures/screenshots/test-api-postman.png}
+
+    \caption{Test API avec Postman ou outil équivalent}
+
+    \label{fig:test-api-postman}
+\end{figure}
 
 Un scénario fonctionnel complet consiste à enregistrer un camion, générer son QR code depuis l'application web, démarrer un trajet depuis l'usine, enregistrer son arrivée au port, enregistrer son départ du port puis clôturer le trajet lors du retour à l'usine. Ce scénario permet de vérifier la cohérence du cycle de vie d'une expédition et la création des logs associés.
 
